@@ -1,18 +1,20 @@
-import './App.css'
 import { 
   createBrowserRouter,
   Route,
   createRoutesFromElements,
   RouterProvider
 } from 'react-router-dom'
-
+// Pages
+import Login from './pages/Login/Login';
+import Dashboard from './pages/Dashboard/Dashboard';
+import NotFound from './pages/NotFound/NotFound'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route>
-      <Route path='/login' />
+    <Route errorElement={<NotFound/>}>
+      <Route path='/login' element={<Login/>} />
       <Route path='/'>
-
+        <Route index element={<Dashboard/>}/>
       </Route>
     </Route>
   )
@@ -20,7 +22,9 @@ const router = createBrowserRouter(
 
 function App() {
   return (
-    <RouterProvider router={router} />
+    <div className="app" >
+      <RouterProvider router={router} />
+    </div>
   );
 }
 
