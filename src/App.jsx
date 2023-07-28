@@ -1,13 +1,27 @@
-import { useState } from 'react'
 import './App.css'
+import { 
+  createBrowserRouter,
+  Route,
+  createRoutesFromElements,
+  RouterProvider
+} from 'react-router-dom'
+
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route>
+      <Route path='/login' />
+      <Route path='/'>
+
+      </Route>
+    </Route>
+  )
+);
 
 function App() {
-
   return (
-    <>
-      <h1>Salstore admin portal</h1>
-    </>
-  )
+    <RouterProvider router={router} />
+  );
 }
 
 export default App
