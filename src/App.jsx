@@ -4,6 +4,9 @@ import {
   createRoutesFromElements,
   RouterProvider
 } from 'react-router-dom'
+// Contexts
+import { ColorModeContext, useMode } from './context/themeContext';
+import { ThemeProvider } from '@mui/material';
 // Pages
 import Login from './pages/Login/Login';
 import Dashboard from './pages/Dashboard/Dashboard';
@@ -21,10 +24,17 @@ const router = createBrowserRouter(
 );
 
 function App() {
+  
+  const [theme, toggleColorMode] = useMode();
+
   return (
-    <div className="app" >
-      <RouterProvider router={router} />
-    </div>
+    <ColorModeContext.Provider value={toggleColorMode}>
+    <ThemeProvider theme={theme} >
+        <div className="app" >
+          <RouterProvider router={router} />
+        </div>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
   );
 }
 
