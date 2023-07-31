@@ -1,5 +1,5 @@
 // color design tokens
-export const tokens = (mode) => ({
+export const tokens = (mode = 'light') => ({
     ...(mode === "light"
     ? {
         darkWhite: {
@@ -35,7 +35,7 @@ export const tokens = (mode) => ({
           800: "#621f26",
           900: "#311013"
         },
-        green: {
+        primary: {
           100: "#cef1e6",
           200: "#9de2cd",
           300: "#6dd4b5",
@@ -89,7 +89,8 @@ export const tokens = (mode) => ({
           700: "#138599",
           800: "#0d5966",
           900: "#062c33"
-        }
+        },
+        boxShadow: '0 10px 15px -8px rgba(0,0,0,0.1)',
     } 
     : {  
 
@@ -107,10 +108,10 @@ export const themeSettings = (mode) => {
             mode: mode,
             ...(mode === "light" ? {
                 primary: {
-                    main: colors.purple[500]
+                    main: colors.primary[500]
                 },
                 secondary: {
-                    main: colors.green[500]
+                    main: colors.purple[500]
                 },
                 background: {
                     default: colors.darkWhite[500]
@@ -146,6 +147,21 @@ export const themeSettings = (mode) => {
                 fontFamily: ["Quicksand", "sans-serif"].join(','),
                 fontSize: 14,
             }
+        },
+        components: {
+          MuiButton: {
+            styleOverrides: {
+              root: ({ownerState}) => ({
+                ...(ownerState.variant === 'contained' && {
+                  '&:hover': {
+                    backgroundColor: tokens().primary[500]
+                  },
+                  color: '#fff',
+                }),
+                fontWeight: 'bold',
+              })
+            },
+          },
         }
     }
 };

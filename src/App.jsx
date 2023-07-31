@@ -31,7 +31,7 @@ function App() {
     <ColorModeContext.Provider value={toggleColorMode}>
     <ThemeProvider theme={theme} >
         <div className="app" >
-          <RouterProvider router={router} />
+            <RouterProvider router={router} />
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>
