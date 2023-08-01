@@ -7,11 +7,14 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { TextField } from 'formik-mui';
 import { Formik, Form, Field} from 'formik';
 import * as Yup from 'yup';
+// Axios
+import useAxiosFunction from '../../../context/useAxiosFunction';
+import authInstance from '../../../services/auth';
 
 function LoginForm() {
-
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const [data, error, loading, axiosFetch] = useAxiosFunction(authInstance);
 
     const FORM_VALIDATION = Yup.object().shape({
         email: Yup.string().email().required(),
@@ -19,20 +22,24 @@ function LoginForm() {
     });
 
     const onSubmit = (values, actions) => {
-        console.log(values);
-        // console.log(actions);
 
-        setTimeout(()=> {
-            actions.setSubmitting(false);
-            actions.resetForm();
-        }, 1000);
+        axiosFetch({
+            method: 'post',
+            data: values
+        });
+        actions.setSubmitting(false);
+        actions.resetForm();
+        
     }
+
+    console.log(data);
+    console.log(error);
 
   return (
       <Container sx={{
           overflow: 'hidden',
-          backgroundColor: '#fff',
-          borderRadius: 2,
+          backgroundColor: colors.gray[100],
+          borderRadius: 1,
           boxShadow: tokens().boxShadow,
       }} disableGutters={true} maxWidth="xs">
 
@@ -64,17 +71,17 @@ function LoginForm() {
                     </Grid>
                     <Grid item >
                         <LoadingButton type="submit" variant="contained"
-                            loading={isSubmitting} fullWidth
+                            loading={loading} fullWidth
                         >
                             <span>Log in</span>
                         </LoadingButton>
                     </Grid>
                     <Grid item alignSelf="center" >
-                        <MuiLink sx={{ '&:hover': { color: '#333' }}}
+                        <MuiLink sx={{ '&:hover': { color: colors.primary[900] }, fontSize: 15}}
                             component={Link}
                             to="/password-reset"
                             underline='none'
-                            color={'#888'}>
+                            color={colors.darkWhite[800]}>
                             Forget password ?
                         </MuiLink>
                     </Grid>

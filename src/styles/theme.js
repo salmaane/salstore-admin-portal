@@ -2,6 +2,17 @@
 export const tokens = (mode = 'light') => ({
     ...(mode === "light"
     ? {
+        gray: {
+          100: "#ffffff",
+          200: "#c9c9c9",
+          300: "#adadad",
+          400: "#929292",
+          500: "#777777",
+          600: "#5f5f5f",
+          700: "#474747",
+          800: "#303030",
+          900: "#000000"
+        },
         darkWhite: {
           100: "#fdfdfe",
           200: "#fbfcfd",
