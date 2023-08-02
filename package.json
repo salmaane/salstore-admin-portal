@@ -21,6 +21,7 @@
     "formik-mui": "^5.0.0-alpha.0",
     "formik-mui-x-date-pickers": "^0.0.1",
     "react": "^18.2.0",
+    "react-auth-kit": "^2.12.5",
     "react-dom": "^18.2.0",
     "react-pro-sidebar": "^1.1.0-alpha.1",
     "react-router-dom": "^6.14.2",

@@ -6,7 +6,13 @@ export default function (axiosInstance) {
     const [loading, setLoading] = useState(false);
     const [controller, setController] = useState();
 
-    const axiosFetch = ({url = '', method, data = null, headers = null}) => {
+    const axiosFetch = ({
+        url = '', method, data = null, headers = null,
+        handleResponse,
+        handleError
+    }) => {      
+        setData(null);
+        setError(null);
         setLoading(true);
         const ctrl = new AbortController();
         setController(ctrl);
@@ -14,15 +20,17 @@ export default function (axiosInstance) {
         axiosInstance({
             method, url, data, headers, signal: ctrl.signal
         })
-        .then(response => 
+        .then(response => {
             setData(response.data)
-        )
-        .catch(error => 
-            setError(error.response)
-        )
-        .finally(() => 
-            setLoading(false)
-        );
+            handleResponse?.(response.data);
+        })
+        .catch(error => {
+            setError(error.response);
+            handleError?.(error.response)
+        })
+        .finally(() => { 
+            setLoading(false);
+        });
     }
 
     useEffect(() => {

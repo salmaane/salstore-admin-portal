@@ -3,7 +3,8 @@ import {
   Route,
   createRoutesFromElements,
   RouterProvider
-} from 'react-router-dom'
+} from 'react-router-dom';
+import { AuthProvider, RequireAuth } from 'react-auth-kit';
 // Contexts
 import { ColorModeContext, useMode } from './context/themeContext';
 import { ThemeProvider } from '@mui/material';
@@ -17,7 +18,7 @@ const router = createBrowserRouter(
     <Route errorElement={<NotFound/>}>
       <Route path='/login' element={<Login/>} />
       <Route path='/'>
-        <Route index element={<Dashboard/>}/>
+        <Route index element={<RequireAuth loginPath='/login'><Dashboard /></RequireAuth>}/>
       </Route>
     </Route>
   )
@@ -30,9 +31,16 @@ function App() {
   return (
     <ColorModeContext.Provider value={toggleColorMode}>
     <ThemeProvider theme={theme} >
-        <div className="app" >
+        <AuthProvider
+          authName={'_auth'}
+          authType={'cookie'}
+          cookieDomain={window.location.hostname}
+          cookieSecure={window.location.protocol === "https:"}
+        >
+          <div className="app" >
             <RouterProvider router={router} />
-        </div>
+          </div>
+        </AuthProvider>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
