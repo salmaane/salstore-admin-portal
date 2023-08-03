@@ -80,7 +80,11 @@ function LoginForm() {
             </Typography>
         </Box>
 
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} key={error?.data?.message}>
+          <Snackbar 
+            open={open} autoHideDuration={6000}
+            onClose={handleClose} key={error?.data?.message}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          >
             <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
                 Email or Password are incorrect!
             </Alert>

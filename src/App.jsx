@@ -12,13 +12,16 @@ import { ThemeProvider } from '@mui/material';
 import Login from './pages/Login/Login';
 import Dashboard from './pages/Dashboard/Dashboard';
 import NotFound from './pages/NotFound/NotFound'
+import RootLayout from './components/layout/RootLayout';
+import UserManagement from './pages/UserManagement/UserManagement'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route errorElement={<NotFound/>}>
       <Route path='/login' element={<Login/>} />
-      <Route path='/'>
+      <Route path='/' element={<RequireAuth loginPath='/login'><RootLayout/></RequireAuth > }>
         <Route index element={<RequireAuth loginPath='/login'><Dashboard /></RequireAuth>}/>
+        <Route path='user-management' element={<RequireAuth loginPath='/login'><UserManagement /></RequireAuth>}/>
       </Route>
     </Route>
   )
