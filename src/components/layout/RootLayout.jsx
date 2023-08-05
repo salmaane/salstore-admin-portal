@@ -6,17 +6,26 @@ import { useState } from "react";
 
 function RootLayout() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState();
+
   return (
     <Box display="flex" >
-      <RootSidebar collapsed={sidebarCollapsed} setCollapsed={setSidebarCollapsed}/>
+      <RootSidebar 
+        collapsed={sidebarCollapsed} 
+        setCollapsed={setSidebarCollapsed}
+      />
       <Box 
         sx={{ 
           width:'100%',
-          pl: sidebarCollapsed ? '80px' : '272px',
           transition: 'all 0.3s'
          }}
       >
         <Topbar/>
+        <Box sx={{ 
+          p:2.9,
+          minHeight:'91.9vh',
+         }}>
+            <Outlet/>
+        </Box>
       </Box>
     </Box>
   )

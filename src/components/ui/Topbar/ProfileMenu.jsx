@@ -87,7 +87,7 @@ function ProfileMenu() {
             p:2,
             mt:'-8px',
             mb: 1,
-            backgroundImage: 'linear-gradient(0deg,rgba(0,0,0,0.3), rgba(0,0,0,0.5), rgba(0,0,0,0.7)) ,url(assets/images/anime-streets.jpg)',
+            backgroundImage: 'linear-gradient(0deg,rgba(0,0,0,0.3), rgba(0,0,0,0.5), rgba(0,0,0,0.7)) ,url(/assets/images/anime-streets.jpg)',
             backgroundSize:'cover',
         }}>
             <Typography variant='h3' sx={{ color:colors.gray[100], fontSize:'bold'}}>Salmane El Mourtaji</Typography>

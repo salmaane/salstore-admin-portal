@@ -2,7 +2,8 @@ import {
   createBrowserRouter,
   Route,
   createRoutesFromElements,
-  RouterProvider
+  RouterProvider,
+  Outlet
 } from 'react-router-dom';
 import { AuthProvider, RequireAuth } from 'react-auth-kit';
 // Contexts
@@ -14,6 +15,8 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import NotFound from './pages/NotFound/NotFound'
 import RootLayout from './components/layout/RootLayout';
 import UserManagement from './pages/UserManagement/UserManagement'
+import Products from './pages/Products/Products';
+import AddProduct from './pages/AddProduct/AddProduct';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +25,10 @@ const router = createBrowserRouter(
       <Route path='/' element={<RequireAuth loginPath='/login'><RootLayout/></RequireAuth > }>
         <Route index element={<RequireAuth loginPath='/login'><Dashboard /></RequireAuth>}/>
         <Route path='user-management' element={<RequireAuth loginPath='/login'><UserManagement /></RequireAuth>}/>
+        <Route path='products' element={<Outlet/>}>
+          <Route index element={<RequireAuth><Products/></RequireAuth>}/>
+          <Route path='add-product' element={<RequireAuth><AddProduct/></RequireAuth>}/>
+        </Route>
       </Route>
     </Route>
   )

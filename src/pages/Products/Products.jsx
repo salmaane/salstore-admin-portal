@@ -1,12 +1,12 @@
 import { Box } from '@mui/material';
 import Header from '../../components/Header';
 
-function Dashboard() {
+function Products() {
   return (
     <Box>
-      <Header title='Dashboard' />
+      <Header title='Products' />
     </Box>
   )
 }
 
-export default Dashboard
+export default Products

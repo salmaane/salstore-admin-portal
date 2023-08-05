@@ -137,26 +137,32 @@ export const themeSettings = (mode) => {
             h1: {
                 fontFamily: ["Quicksand", "sans-serif"].join(','),
                 fontSize: 40,
+                fontWeight:'bold',
             },
             h2: {
                 fontFamily: ["Quicksand", "sans-serif"].join(','),
                 fontSize: 32,
+                fontWeight:'bold',
             },
             h3: {
                 fontFamily: ["Quicksand", "sans-serif"].join(','),
                 fontSize: 24,
+                fontWeight:'700',
             },
             h4: {
                 fontFamily: ["Quicksand", "sans-serif"].join(','),
                 fontSize: 20,
+                fontWeight:'500',
             },
             h5: {
                 fontFamily: ["Quicksand", "sans-serif"].join(','),
                 fontSize: 16,
+                fontWeight:'500',
             },
             h6: {
                 fontFamily: ["Quicksand", "sans-serif"].join(','),
                 fontSize: 14,
+                fontWeight:'500',
             }
         },
         components: {
