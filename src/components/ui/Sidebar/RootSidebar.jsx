@@ -7,26 +7,29 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 // components
 import Separator from './Separator';
 import Item from './Item'
 
 
-function RootSidebar() {
+function RootSidebar({collapsed, setCollapsed}) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [collapsed, setCollapsed] = useState(false);
+  
   const [selected, setSelected] = useState('Dashboard');
 
   return (
     <Sidebar
+      breakPoint='lg'
       collapsed={collapsed}
       backgroundColor={colors.gray[100]}
-      rootStyles={{
+      rootStyles={({toggled}) => ({
         boxShadow: '6px 0 10px -8px rgba(0,0,0,0.1)',
         width: '272px',
         height: '100vh',
-       }}
+        position:'fixed',
+       })}
     >
       <Menu
         menuItemStyles={{
@@ -81,8 +84,8 @@ function RootSidebar() {
           icon={<ShoppingBagOutlinedIcon/>}
           label="Products" rootStyles={{ fontSize:'15px' }}
         >
-          <Item title='Products List' to='products'/>
-          <Item title='Add Product' />
+          <Item title='Products List' to='products' icon={<FiberManualRecordIcon sx={{ fontSize: '10px' }} />}/>
+          <Item title='Add Product' icon={<FiberManualRecordIcon sx={{ fontSize:'10px' }} />} />
         </SubMenu>
         <Item
           title="User Management"

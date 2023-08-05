@@ -1,9 +1,9 @@
-import { Typography } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 
 const Separator = ({ title, collapsed, color }) => {
 
     return (
-        collapsed ? null : <Typography variant='h6' sx={{ py: 1.5, px: 2.5, color: color }} >{title}</Typography>
+        collapsed ? <Divider variant="middle"/> : <Divider textAlign="left"><Typography variant='h6' sx={{ py: 1.5, color: color }} >{title}</Typography></Divider>
     );
 }
 

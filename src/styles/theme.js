@@ -101,7 +101,7 @@ export const tokens = (mode = 'light') => ({
           800: "#0d5966",
           900: "#062c33"
         },
-        boxShadow: '0 10px 15px -8px rgba(0,0,0,0.1)',
+        boxShadow: '0 10px 8px -8px rgba(0,0,0,0.1)',
     } 
     : {  
 
