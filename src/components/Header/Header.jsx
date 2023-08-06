@@ -1,6 +1,10 @@
 import { Box, Breadcrumbs, Typography, useTheme } from "@mui/material"
 import { useLocation, Link } from "react-router-dom"
-import { tokens } from "../styles/theme";
+import { tokens } from "../../styles/theme";
+import DateTime from "./DateTime";
+// Icons
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+
 
 function Header({title}) {
     const theme = useTheme();
@@ -33,8 +37,9 @@ function Header({title}) {
                 })}
             </Breadcrumbs>
         </Box>
-        <Box>
-            For Date and time
+        <Box display='flex' justifyContent='space-between' gap={1} alignItems='center'>
+            <CalendarMonthOutlinedIcon sx={{ color: colors.gray[700] }}/>
+            <DateTime/>
         </Box>
     </Box>
   )

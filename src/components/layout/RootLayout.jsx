@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import RootSidebar from "../ui/Sidebar/RootSidebar";
-import Topbar from "../ui/Topbar/Topbar";
+import RootSidebar from "../Sidebar/RootSidebar";
+import Topbar from "../Topbar/Topbar";
 import { Box } from "@mui/material";
 import { useState } from "react";
 
@@ -20,10 +20,7 @@ function RootLayout() {
          }}
       >
         <Topbar/>
-        <Box sx={{ 
-          p:2.9,
-          minHeight:'91.9vh',
-         }}>
+        <Box sx={{ p:2.9, minHeight:'91.9vh' }}>
             <Outlet/>
         </Box>
       </Box>

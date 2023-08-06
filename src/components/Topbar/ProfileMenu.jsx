@@ -1,13 +1,13 @@
-import {useTheme ,Box, Avatar, Menu, MenuItem, Divider, IconButton, Tooltip, Badge, Typography, MenuList} from '@mui/material';
+import {useTheme ,Box, Avatar, Menu, MenuItem, Divider, IconButton, Tooltip, Badge, Typography} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
-import { tokens } from "../../../styles/theme";
+import { tokens } from "../../styles/theme";
 // Icons
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 // react-auth-kit 
-import { useSignOut } from 'react-auth-kit';
+import { useSignOut, useAuthUser } from 'react-auth-kit';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -54,6 +54,9 @@ function ProfileMenu() {
   const signOut = useSignOut();
   const handleLogout = ()  => signOut();
 
+  const user = useAuthUser();
+  const name = user().name.split(' ').map(word => word.slice(0,1).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+
   return (
     <>
     <IconButton onClick={handleClick}>
@@ -90,7 +93,7 @@ function ProfileMenu() {
             backgroundImage: 'linear-gradient(0deg,rgba(0,0,0,0.3), rgba(0,0,0,0.5), rgba(0,0,0,0.7)) ,url(/assets/images/anime-streets.jpg)',
             backgroundSize:'cover',
         }}>
-            <Typography variant='h3' sx={{ color:colors.gray[100], fontSize:'bold'}}>Salmane El Mourtaji</Typography>
+            <Typography variant='h3' sx={{ color:colors.gray[100], fontSize:'bold'}}>{name}</Typography>
             <Typography variant='subtitle2' color={colors.gray[100]}>Admin</Typography>
         </Box>
         <MenuItem onClick={handleClose}>

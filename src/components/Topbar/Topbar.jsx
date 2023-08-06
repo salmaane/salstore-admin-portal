@@ -1,5 +1,5 @@
 import {useTheme, Box, IconButton, Badge} from "@mui/material";
-import { tokens } from "../../../styles/theme";
+import { tokens } from "../../styles/theme";
 // Icons
 import SearchBar from "./SearchBar";
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';

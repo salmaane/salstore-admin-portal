@@ -1,4 +1,4 @@
-import { tokens } from '../../../styles/theme';
+import { tokens } from '../../styles/theme';
 import { useLocation } from 'react-router-dom';
 // Assets
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
