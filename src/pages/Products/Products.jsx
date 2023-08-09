@@ -1,6 +1,6 @@
 import { Box, Grid } from '@mui/material';
 import Header from '../../components/Header/Header';
-import DataTable from './DataTable';
+import DataTable from '../../components/DataTable/DataTable';
 import { useState} from 'react';
 // axios
 import useAxios from './../../hooks/useAxios';
@@ -27,19 +27,19 @@ function Products() {
     {
       field: 'title',
       headerName: 'Title',
-      width: 150,
+      width: 200,
       sortable: true
     },
     {
       field: 'brand',
       headerName: 'Brand',
-      width: 150,
+      width: 100,
       sortable: true
     },
     {
       field: 'retailPrice',
       headerName: 'Price',
-      width: 150,
+      width: 100,
       sortable: true,
       type:'number',
       headerAlign: 'left',
@@ -48,7 +48,7 @@ function Products() {
     {
       field: 'gender',
       headerName: 'Gender',
-      width: 150,
+      width: 100,
     },
   ];
   const productsRows = sneakers.data ? sneakers.data?.map(row => {

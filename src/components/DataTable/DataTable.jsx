@@ -1,7 +1,9 @@
-import {Box, Paper, useTheme} from '@mui/material';
+import {Box, Paper, useTheme, LinearProgress} from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
 import { tokens } from '../../styles/theme';
+// Custom Pagination
+import Pagination from './Pagination';
 
 export default function DataTable({rows, columns, loading, rowCount, paginationModel, setPaginationMode}) {
   const theme = useTheme();
@@ -25,6 +27,7 @@ export default function DataTable({rows, columns, loading, rowCount, paginationM
           filterMode='client'
           checkboxSelection
           disableRowSelectionOnClick
+
           keepNonExistentRowsSelected
           pageSizeOptions={[10]}
           rowCount={rowCountState}
@@ -32,6 +35,10 @@ export default function DataTable({rows, columns, loading, rowCount, paginationM
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationMode}
 
+          slots={{
+            loadingOverlay: LinearProgress,
+            pagination: Pagination,
+          }}
           sx={{ 
             '& .MuiDataGrid-row:hover': {
               color: colors.indigo[500],
@@ -40,9 +47,11 @@ export default function DataTable({rows, columns, loading, rowCount, paginationM
             '& .MuiDataGrid-row': {
               color: colors.gray[900],
             },
+            // border:'none',
           }}
         />
       </Box>
     </Paper>
   );
 }
+
