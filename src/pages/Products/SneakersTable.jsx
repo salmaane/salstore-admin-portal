@@ -6,9 +6,11 @@ import { useState, useEffect} from 'react';
 import axiosInstance from './../../services/sneakers';
 import useAxiosFunction from './../../hooks/useAxiosFunction';
 import { useGridApiRef } from '@mui/x-data-grid';
+import DeleteDialog from '../../components/Dialog/DeleteDialog';
 
 
 function SneakersTable() {
+  const [open, setOpen] = useState({isOpen: false, item: null});
   const apiRef = useGridApiRef();
   const [paginationModel, setPaginationModel] = useState({
     page: 0,
@@ -93,7 +95,7 @@ function SneakersTable() {
       sortable: false,
       editable:false,
       getActions: (params) => [
-          <IconButton onClick={()=> handleDelete(params.id)}>
+          <IconButton onClick={()=> setOpen({isOpen: true, item: params.row})}>
             <DeleteIcon color='error' />
           </IconButton>
       ],
@@ -101,12 +103,7 @@ function SneakersTable() {
   ];
 
   function handleDelete(id) {
-    // axiosFetch({
-    //     url:'/' + id,
-    //     method: 'delete'
-    // });
-    apiRef.current.updateRows([{ id: id, _action: 'delete' }]);
-    console.log('delete called on item '+ id)
+
   }
 
   return (
@@ -119,6 +116,12 @@ function SneakersTable() {
             paginationModel={paginationModel}
             setPaginationMode={setPaginationModel}
             apiRef={apiRef}
+        />
+        <DeleteDialog 
+          isOpen={open.isOpen}
+          handleClose={()=> setOpen({...open, isOpen:false})}
+          onAgree={handleDelete}
+          state={open.item}
         />
     </>
   )
