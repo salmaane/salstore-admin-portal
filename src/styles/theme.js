@@ -124,6 +124,9 @@ export const themeSettings = (mode) => {
                 secondary: {
                     main: colors.purple[500]
                 },
+                error : {
+                  main: colors.red[500]
+                },
                 background: {
                     default: colors.darkWhite[500]
                 },
@@ -169,7 +172,7 @@ export const themeSettings = (mode) => {
           MuiButton: {
             styleOverrides: {
               root: ({ownerState}) => ({
-                ...(ownerState.variant === 'contained' && {
+                ...(ownerState.variant === 'contained' && ownerState.color === 'primary' && {
                   '&:hover': {
                     backgroundColor: tokens().primary[500]
                   },

@@ -17,7 +17,7 @@ export default function DataTable({rows, columns, loading, rowCount, paginationM
   }, [rowCount, setRowCountState])
 
   return (
-    <Paper elevation={0} sx={{ p:2 }}>
+    <Paper elevation={0} sx={{ p:2, borderRadius:3 }}>
       <Box sx={{ width: '100%' }}>
         <DataGrid
           autoHeight

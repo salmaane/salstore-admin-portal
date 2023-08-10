@@ -26,7 +26,7 @@ const CustomPagination = ({ page, onPageChange, className }) => {
       shape="rounded"
       sx={{ 
         '.Mui-selected': {
-            color:'#fff',
+            color:'#ffffff !important',
             fontWeight:'bold'
         }
        }}
