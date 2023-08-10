@@ -25,6 +25,7 @@ function Topbar() {
         justifyContent:'space-between',
         position:'sticky',
         top:'0',
+        zIndex:9,
       }}
      >
       <SearchBar/>

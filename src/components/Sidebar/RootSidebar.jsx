@@ -33,6 +33,7 @@ function RootSidebar({collapsed, setCollapsed }) {
         position:'sticky',
         left:0,
         top:0,
+        zIndex:10,
        })}
     >
       <Menu

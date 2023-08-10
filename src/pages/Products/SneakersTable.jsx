@@ -1,26 +1,28 @@
 import { Box, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DataTable from '../../components/DataTable/DataTable';
-import { useState, useReducer} from 'react';
+import { useState, useEffect} from 'react';
 // axios
-import useAxios from './../../hooks/useAxios';
 import axiosInstance from './../../services/sneakers';
 import useAxiosFunction from './../../hooks/useAxiosFunction';
+import { useGridApiRef } from '@mui/x-data-grid';
 
 
 function SneakersTable() {
+  const apiRef = useGridApiRef();
   const [paginationModel, setPaginationModel] = useState({
     page: 0,
     pageSize: 10,
   });
-  
-  const {axiosFetch} = useAxiosFunction(axiosInstance);
 
-  const { data:sneakers, loading } = useAxios({
-    axiosInstance,
-    url:`/?page=${paginationModel.page+1}&limit=${paginationModel.pageSize}`,
-    method:'get',
-  });
+  const {data: sneakers ,loading, axiosFetch} = useAxiosFunction(axiosInstance);
+
+  useEffect(()=> {
+    axiosFetch({
+      url:`/?page=${paginationModel.page+1}&limit=${paginationModel.pageSize}`,
+      method: 'get',
+    });
+  }, [paginationModel]);
 
   const productsColumns = [
     {
@@ -103,18 +105,20 @@ function SneakersTable() {
     //     url:'/' + id,
     //     method: 'delete'
     // });
-    console.log('deleete called on item '+ id)
+    apiRef.current.updateRows([{ id: id, _action: 'delete' }]);
+    console.log('delete called on item '+ id)
   }
 
   return (
     <>
         <DataTable 
-            rows={sneakers.data || []}
+            rows={sneakers?.data || []}
             columns={productsColumns}
             loading={loading}
-            rowCount={sneakers.total}
+            rowCount={sneakers?.total}
             paginationModel={paginationModel}
             setPaginationMode={setPaginationModel}
+            apiRef={apiRef}
         />
     </>
   )

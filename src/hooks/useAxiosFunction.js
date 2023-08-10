@@ -40,5 +40,5 @@ export default function (axiosInstance) {
         };
     }, [controller]);
 
-    return [data, error, loading, axiosFetch];
+    return {data, error, loading, axiosFetch};
 }
