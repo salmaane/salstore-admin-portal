@@ -19,7 +19,7 @@ import { useState } from 'react';
 function LoginForm() {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const [data, error, loading, axiosFetch] = useAxiosFunction(authInstance);
+    const {data, error, loading, axiosFetch} = useAxiosFunction(authInstance);
     const signIn = useSignIn();
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
@@ -45,7 +45,7 @@ function LoginForm() {
                     tokenType: 'Bearer',
                     authState: data.user,
                 })
-                navigate('/');
+                navigate('/', {replace: true});
         }
         const handleError = () => setOpen(true);
 

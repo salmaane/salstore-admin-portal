@@ -1,4 +1,4 @@
-import {Box, Paper, useTheme, LinearProgress} from '@mui/material';
+import {Box, useTheme, LinearProgress} from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
 import { tokens } from '../../styles/theme';
@@ -17,7 +17,6 @@ export default function DataTable({rows, columns, loading, rowCount, paginationM
   }, [rowCount, setRowCountState])
 
   return (
-    <Paper elevation={0} sx={{ p:2, borderRadius:3 }}>
       <Box sx={{ width: '100%' }}>
         <DataGrid
           autoHeight
@@ -52,7 +51,6 @@ export default function DataTable({rows, columns, loading, rowCount, paginationM
           apiRef={apiRef}
         />
       </Box>
-    </Paper>
   );
 }
 

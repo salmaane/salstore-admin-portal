@@ -1,10 +1,11 @@
-import { Box, IconButton} from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { useState, useEffect} from 'react';
-import { useGridApiRef } from '@mui/x-data-grid';
 import { useAuthHeader } from 'react-auth-kit';
+import { useNavigate } from 'react-router-dom';
+// components
 import DeleteDialog from '../../components/Dialog/DeleteDialog';
 import DataTable from '../../components/DataTable/DataTable';
+import { Box, IconButton, Button, Paper} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 // axios
 import axiosInstance from './../../services/sneakers';
 import useAxiosFunction from './../../hooks/useAxiosFunction';
@@ -117,8 +118,10 @@ function SneakersTable() {
     });
   }
   
+  const navigate = useNavigate();
   return (
-    <>
+    <Paper elevation={0} sx={{ p:2, borderRadius:3, display:'flex', gap:2, flexDirection:'column' }}>
+
         <DataTable 
             rows={sneakers?.data || []}
             columns={productsColumns}
@@ -133,7 +136,10 @@ function SneakersTable() {
           onConfirm={handleDelete}
           state={open.item}
         />
-    </>
+        <Button variant="contained" onClick={() => navigate('/products/add-product')}>
+          Add Product
+        </Button>
+    </Paper>
   )
 }
 
