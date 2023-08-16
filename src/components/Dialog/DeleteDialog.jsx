@@ -4,7 +4,8 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import {Alert, Snackbar, Slide} from '@mui/material';
+import SnackbarAlert from '../SnackbarAlert/SnackbarAlert';
+import SlideTransition from './SlideTransition';
 import { useState } from 'react';
 
 function DeleteDialog({isOpen, handleClose, onConfirm, state}) {
@@ -40,22 +41,15 @@ function DeleteDialog({isOpen, handleClose, onConfirm, state}) {
         </Button>
       </DialogActions>
     </Dialog>
-    <Snackbar 
-        open={openAlert} autoHideDuration={5000}
-        onClose={handleCloseAlert} key={state?.id}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-        TransitionComponent={SlideTransition}
-      >
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-            Item deleted successfully!
-        </Alert>
-    </Snackbar>
+    <SnackbarAlert
+      title="Item deleted successfully"
+      openAlert={openAlert}
+      alertKey={state?.id}
+      TransitionComponent={SlideTransition}
+      handleCloseAlert={handleCloseAlert}
+    />
   </>
   )
-}
-
-function SlideTransition(props) {
-  return <Slide {...props} direction="up" />;
 }
 
 export default DeleteDialog

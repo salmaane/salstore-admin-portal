@@ -1,6 +1,6 @@
 import { Box, Grid } from '@mui/material';
 import Header from '../../components/Header/Header';
-import AddSneakerForm from './AddSneakerForm';
+import SneakerForm from './SneakerForm';
 
 function AddProduct() {
   return (
@@ -10,7 +10,7 @@ function AddProduct() {
           <Header title='Add Product'/>
         </Grid>
         <Grid item xs={12}>
-          <AddSneakerForm />
+          <SneakerForm />
         </Grid>
       </Grid>
     </Box>

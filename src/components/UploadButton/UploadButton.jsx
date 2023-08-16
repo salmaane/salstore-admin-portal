@@ -2,7 +2,7 @@ import { Button, Box, Typography } from "@mui/material";
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import { ErrorMessage } from "formik";
 
-const UploadButton = ({title, setFieldValue, name, label, error}) => {
+const UploadButton = ({title, setFieldValue, name, label, accept='image/*'}) => {
     return (
     <Box display='flex' flexDirection='column' alignItems='center' justifyContent='center'>
         <Button variant="outlined" color="success" component="label" startIcon={<CloudUploadOutlinedIcon/>} fullWidth>
@@ -10,7 +10,7 @@ const UploadButton = ({title, setFieldValue, name, label, error}) => {
             <input 
                 name={name}
                 hidden type="file"
-                accept='image/*'
+                accept={accept}
                 onChange={(e) => {
                     setFieldValue(name, e.target.files[0]);
                 }}
