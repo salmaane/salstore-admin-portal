@@ -17,6 +17,7 @@ import RootLayout from './components/layout/RootLayout';
 import UserManagement from './pages/UserManagement/UserManagement'
 import Products from './pages/Products/Products';
 import AddProduct from './pages/AddProduct/AddProduct';
+import UpdateProduct from './pages/UpdateProduct/UpdateProduct';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
         <Route path='products' element={<Outlet/>}>
           <Route index element={<RequireAuth><Products/></RequireAuth>}/>
           <Route path='add-product' element={<RequireAuth><AddProduct/></RequireAuth>}/>
+          <Route path='update-product/:id' element={<UpdateProduct/>}/>
         </Route>
       </Route>
     </Route>

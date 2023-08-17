@@ -6,6 +6,7 @@ import DeleteDialog from '../../components/Dialog/DeleteDialog';
 import DataTable from '../../components/DataTable/DataTable';
 import { Box, IconButton, Button, Paper} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 // axios
 import axiosInstance from './../../services/sneakers';
 import useAxiosFunction from './../../hooks/useAxiosFunction';
@@ -92,13 +93,26 @@ function SneakersTable() {
     {
       field: 'delete',
       type:'actions',
-      headerName:'',
-      with:'50',
+      headerName:'Delete',
+      with:50,
       sortable: false,
       editable:false,
       getActions: (params) => [
           <IconButton onClick={()=> setOpen({isOpen: true, item: params.row})}>
-            <DeleteIcon color='error' />
+            <DeleteIcon color='error'/>
+          </IconButton>
+      ],
+    },
+    {
+      field: 'update',
+      type:'actions',
+      headerName:'Edit',
+      with:50,
+      sortable: false,
+      editable:false,
+      getActions: (params) => [
+          <IconButton onClick={()=> navigate('/products/update-product/'+params.id, {state: params.row})}>
+            <EditOutlinedIcon />
           </IconButton>
       ],
     },
