@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 // components
 import DeleteDialog from '../../components/Dialog/DeleteDialog';
 import DataTable from '../../components/DataTable/DataTable';
-import { Box, IconButton, Button, Paper} from '@mui/material';
+import { Box, IconButton, Button, Paper, Typography} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 // axios
@@ -41,7 +41,7 @@ function SneakersTable() {
       width:100,
       renderCell: (params) => {
         return (
-          <Box>
+          <Box sx={{ cursor:'pointer' }} onClick={()=> navigate('/products/'+params.id, {state: params.row})}>
             <img alt='thumb' src={params.value.thumbUrl} 
                 style={{
                     width:'auto',
@@ -59,7 +59,16 @@ function SneakersTable() {
       field: 'title',
       headerName: 'Title',
       width: 300,
-      sortable: true
+      sortable: true,
+      renderCell: (params)=> {
+        return (
+          <Box>
+            <Typography sx={{ cursor:'pointer', '&:hover': {textDecoration:'underline'} }} onClick={()=> navigate('/products/'+params.id, {state: params.row})}>
+              {params.value}
+            </Typography>
+          </Box>
+        );
+      },
     },
     {
       field: 'brand',

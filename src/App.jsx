@@ -18,6 +18,7 @@ import UserManagement from './pages/UserManagement/UserManagement'
 import Products from './pages/Products/Products';
 import AddProduct from './pages/AddProduct/AddProduct';
 import UpdateProduct from './pages/UpdateProduct/UpdateProduct';
+import ProductDetails from './pages/ProductDetails/ProductDetails';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,7 +30,8 @@ const router = createBrowserRouter(
         <Route path='products' element={<Outlet/>}>
           <Route index element={<RequireAuth><Products/></RequireAuth>}/>
           <Route path='add-product' element={<RequireAuth><AddProduct/></RequireAuth>}/>
-          <Route path='update-product/:id' element={<UpdateProduct/>}/>
+          <Route path='update-product/:id' element={<RequireAuth><UpdateProduct/></RequireAuth>}/>
+          <Route path=':id' element={<RequireAuth><ProductDetails/></RequireAuth>} />
         </Route>
       </Route>
     </Route>

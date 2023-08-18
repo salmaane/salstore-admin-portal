@@ -148,19 +148,10 @@ function UpdateForm({productData, id}) {
                                 accept=".png, .jpg, .jpeg, .svg"
                             />
                         </Grid>
-                        <Grid item xs={8} mt={2} >
+                        <Grid item xs={12} >
                             <LoadingButton variant="contained" fullWidth loading={loading} type='sumbit'>
                                 Save
                             </LoadingButton>
-                        </Grid>
-                        <Grid item xs={4} mt={2}>
-                            <Button 
-                                sx={{ whiteSpace:'nowrap' }}
-                                onClick={()=> props.resetForm()}
-                                variant="outlined"
-                                color='warning'
-                                fullWidth
-                            >Reset form</Button>
                         </Grid>
                     </Grid>
                 </Form>

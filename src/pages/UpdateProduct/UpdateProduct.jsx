@@ -1,12 +1,13 @@
 import { Box, Grid, Typography } from '@mui/material';
 import Header from '../../components/Header/Header';
 import UpdateForm from './UpdateForm';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useAxiosFunction from '../../hooks/useAxiosFunction';
 import axiosInstance from '../../services/sneakers';
 import { useEffect } from 'react';
 
 function UpdateProduct() {
+    const navigate = useNavigate();
     const {id} = useParams();
     const {data: productData, axiosFetch} = useAxiosFunction(axiosInstance);
     useEffect(() => {
@@ -40,9 +41,14 @@ function UpdateProduct() {
                     backgroundColor:'white' ,
                     marginTop:'10px',
                     width: '200px',
+                    cursor:'pointer',
                 }}
+                onClick={()=> navigate('/products/'+id, {state: productData})}
             />
-            <Typography variant='h2'>{productData?.title}</Typography>
+            <Typography 
+              variant='h2' sx={{ cursor:'pointer', '&:hover':{ opacity:'0.6'}, transition:'all 0.3s' }} 
+              onClick={()=> navigate('/products/'+id, {state: productData})}
+            >{productData?.title}</Typography>
         </Grid>
         <Grid item xs={12}>
           <UpdateForm productData={productData} id={id}/>
