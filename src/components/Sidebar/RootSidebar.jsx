@@ -37,6 +37,7 @@ function RootSidebar({collapsed, setCollapsed }) {
        })}
     >
       <Menu
+        closeOnClick
         menuItemStyles={{
           button: ({ level, active, disabled }) => {
               return {
@@ -87,6 +88,7 @@ function RootSidebar({collapsed, setCollapsed }) {
         <SubMenu 
           icon={<ShoppingBagOutlinedIcon/>}
           label="Products" rootStyles={{ fontSize:'15px' }}
+          defaultOpen={true}
         >
           <Item 
             title='Products List'
