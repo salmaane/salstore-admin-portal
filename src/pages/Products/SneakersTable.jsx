@@ -151,7 +151,7 @@ function SneakersTable() {
             loading={loading}
             rowCount={sneakers?.total}
             paginationModel={paginationModel}
-            setPaginationMode={setPaginationModel}
+            setPaginationModel={setPaginationModel}
         />
         <DeleteDialog 
           isOpen={open.isOpen}

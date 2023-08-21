@@ -5,7 +5,7 @@ import { tokens } from '../../styles/theme';
 // Custom Pagination
 import Pagination from './Pagination';
 
-export default function DataTable({rows, columns, loading, rowCount, paginationModel, setPaginationMode, apiRef}) {
+export default function DataTable({rows, columns, loading, rowCount, paginationModel, setPaginationModel, apiRef}) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -32,7 +32,7 @@ export default function DataTable({rows, columns, loading, rowCount, paginationM
           rowCount={rowCountState}
           paginationMode='server'
           paginationModel={paginationModel}
-          onPaginationModelChange={setPaginationMode}
+          onPaginationModelChange={setPaginationModel}
 
           slots={{
             loadingOverlay: LinearProgress,
