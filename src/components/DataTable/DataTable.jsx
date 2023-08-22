@@ -5,7 +5,7 @@ import { tokens } from '../../styles/theme';
 // Custom Pagination
 import Pagination from './Pagination';
 
-export default function DataTable({rows, columns, loading, rowCount, paginationModel, setPaginationModel, apiRef}) {
+export default function DataTable({rows, columns, loading, rowCount, paginationModel, setPaginationModel, apiRef, pageSize, minHeight = '646px'}) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -28,7 +28,7 @@ export default function DataTable({rows, columns, loading, rowCount, paginationM
           disableRowSelectionOnClick
 
           keepNonExistentRowsSelected
-          pageSizeOptions={[10]}
+          pageSizeOptions={[pageSize]}
           rowCount={rowCountState}
           paginationMode='server'
           paginationModel={paginationModel}
@@ -39,7 +39,7 @@ export default function DataTable({rows, columns, loading, rowCount, paginationM
             pagination: Pagination,
           }}
           sx={{ 
-            minHeight: '646px',
+            minHeight: minHeight,
             '& .MuiDataGrid-row:hover': {
               color: colors.indigo[500],
               backgroundColor: colors.darkWhite[500]

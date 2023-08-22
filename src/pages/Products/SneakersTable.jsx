@@ -100,26 +100,16 @@ function SneakersTable() {
       }
     },
     {
-      field: 'delete',
+      field: 'action',
       type:'actions',
-      headerName:'Delete',
+      headerName:'Action',
       with:50,
       sortable: false,
       editable:false,
       getActions: (params) => [
           <IconButton onClick={()=> setOpen({isOpen: true, item: params.row})}>
             <DeleteIcon color='error'/>
-          </IconButton>
-      ],
-    },
-    {
-      field: 'update',
-      type:'actions',
-      headerName:'Edit',
-      with:50,
-      sortable: false,
-      editable:false,
-      getActions: (params) => [
+          </IconButton>,
           <IconButton onClick={()=> navigate('/products/update-product/'+params.id, {state: params.row})}>
             <EditOutlinedIcon />
           </IconButton>
@@ -152,12 +142,20 @@ function SneakersTable() {
             rowCount={sneakers?.total}
             paginationModel={paginationModel}
             setPaginationModel={setPaginationModel}
+            pageSize={paginationModel.pageSize}
         />
         <DeleteDialog 
+          id={open?.item?.id}
           isOpen={open.isOpen}
           handleClose={()=> setOpen({...open, isOpen:false})}
           onConfirm={handleDelete}
-          state={open.item}
+          title='Are you sure to delete this item ?'
+          bodyContent={
+            <Box sx={{ display:'flex', justifyContent:'center', alignItems:'center', flexDirection:'column', gap:2, my:3}}>
+              <img alt='product' src={open.item?.media.thumbUrl} style={{ width:'auto', height:'auto', maxWidth:'90px' }}/>
+              <Typography variant='h5'>{open.item?.title}</Typography>
+            </Box>
+          }
         />
         <Button variant="contained" onClick={() => navigate('/products/add-product')}>
           Add Product

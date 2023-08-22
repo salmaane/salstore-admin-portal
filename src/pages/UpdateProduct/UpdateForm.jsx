@@ -13,15 +13,10 @@ import axiosInstance from '../../services/sneakers'
 import UploadButton from "../../components/UploadButton/UploadButton";
 import SlideTransition from '../../components/Dialog/SlideTransition';
 import SnackbarAlert from "../../components/SnackbarAlert/SnackbarAlert";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function UpdateForm({productData, id}) {
-    const [openAlert, setOpenAlert] = useState(false);
-    const handleCloseAlert = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setOpenAlert(false);
-    }
+    const navigate = useNavigate();
 
     const [errorAlert, setErrorAlert] = useState(false);
     const handleCloseErrorAlert = (e, reason) => {
@@ -63,7 +58,9 @@ function UpdateForm({productData, id}) {
                 'Content-Type': 'multipart/form-data',
             },
             data: formData,
-            handleResponse: () => setOpenAlert(true),
+            handleResponse: () => {
+                navigate('/products/'+id);
+            },
             handleError: () => setErrorAlert(true),
         });
         actions.resetForm();
@@ -157,13 +154,6 @@ function UpdateForm({productData, id}) {
                 </Form>
             )}
         </Formik>
-        <SnackbarAlert
-            title='Item updated successfully'
-            openAlert={openAlert}
-            handleCloseAlert={handleCloseAlert}
-            alertKey={data?.id}
-            TransitionComponent={SlideTransition}
-        />
         {error?.status === 422 ? <SnackbarAlert
             title={error?.data.message}
             openAlert={errorAlert}
