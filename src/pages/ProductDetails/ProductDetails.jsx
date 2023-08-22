@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "../../components/Header/Header";
-import { Grid, Box, Skeleton, Button } from "@mui/material";
+import { Grid, Box, Skeleton, Button, Typography } from "@mui/material";
 import axiosInstance from '../../services/sneakers'
 import useAxiosFunction from "../../hooks/useAxiosFunction";
 import { useEffect, useState } from "react";
@@ -81,7 +81,14 @@ function ProductDetails() {
           isOpen={open.isOpen}
           handleClose={()=> setOpen({...open, isOpen:false})}
           onConfirm={handleDelete}
-          state={open.item}
+          id={open?.item?.id}
+          title='Are you sure to delete this item ?'
+          bodyContent={
+            <Box sx={{ display:'flex', justifyContent:'center', alignItems:'center', flexDirection:'column', gap:2, my:3}}>
+              <img alt='product' src={open.item?.media.thumbUrl} style={{ width:'auto', height:'auto', maxWidth:'90px' }}/>
+              <Typography variant='h5'>{open.item?.title}</Typography>
+            </Box>
+          }
       />
     </Box>
   )

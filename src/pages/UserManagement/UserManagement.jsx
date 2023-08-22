@@ -1,11 +1,21 @@
-import { Box, Grid, IconButton, Avatar } from "@mui/material";
-import Header from "../../components/Header/Header";
-import UsersTable from "./UsersTable";
+import { Box, Grid, IconButton, Avatar, Typography } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+// Axios
+import useAxiosFunction from "../../hooks/useAxiosFunction";
+import usersInstance from "../../services/users";
+// components
+import Header from "../../components/Header/Header";
+import UsersTable from "./UsersTable";
+import DeleteDialog from '../../components/Dialog/DeleteDialog';
+import { useState } from "react";
+import { useAuthHeader } from "react-auth-kit";
 
 function UserManagement() {
-  
+  const [open, setOpen] = useState({isOpen:false, item: null});
+  const {data: users, error, axiosFetch} = useAxiosFunction(usersInstance);
+  const auth_token = useAuthHeader();
+  const [deleteCount, setDeleteCount] = useState(0);
 
   const USERS_COLUMNS = [
     {
@@ -76,7 +86,7 @@ function UserManagement() {
         sortable: false,
         editable:false,
         getActions: (params) => [
-            <IconButton onClick={()=> console.log('implement delete')}>
+            <IconButton onClick={()=> setOpen({isOpen: true, item: params.row})}>
                 <DeleteIcon color='error'/>
             </IconButton>,
             <IconButton onClick={()=> console.log('add navigate() to update')}>
@@ -146,6 +156,17 @@ function UserManagement() {
       },
   ];
 
+  const handleDeleteUser = (id) => {
+    axiosFetch({
+      url:'/' + id,
+      method:'delete',
+      headers: {
+        'Authorization': auth_token(),
+      },
+      handleResponse: () => setDeleteCount(deleteCount+1)
+    });
+  };
+
   return (
     <Box>
       <Grid container gap={3}>
@@ -162,9 +183,28 @@ function UserManagement() {
           />
         </Grid>
         <Grid item xs={12}>
-          <UsersTable title='Users' role='user' columns={USERS_COLUMNS} pageSize={10}/>
+          <UsersTable 
+            title='Users' 
+            role='user' 
+            columns={USERS_COLUMNS} 
+            pageSize={10}
+            rerender={deleteCount}
+          />
         </Grid>
       </Grid>
+      <DeleteDialog
+        title='Are you sure to delete this user ?'
+        id={open?.item?.id}
+        isOpen={open.isOpen}
+        handleClose={()=> setOpen({...open, isOpen:false})}
+        bodyContent={
+          <Box display='flex' justifyContent='center' alignItems='center' gap={2}>
+            <Avatar alt='profile' src={open?.item?.profile} />
+            <Typography>{open?.item?.name}</Typography>
+          </Box>
+        }
+        onConfirm={handleDeleteUser}
+      />
     </Box>
   )
 }

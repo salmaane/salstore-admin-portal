@@ -8,7 +8,7 @@ import { useAuthHeader } from 'react-auth-kit';
 import useAxiosFunction from '../../hooks/useAxiosFunction';
 import usersInstance from '../../services/users';
 
-function UsersTable({title, role, columns, pageSize, tableMinHeight}) {
+function UsersTable({title, role, columns, pageSize, tableMinHeight, rerender}) {
     const auth_token = useAuthHeader();
     const {data: users, error, loading, axiosFetch} = useAxiosFunction(usersInstance);
     const [paginationModel, setPaginationModel] = useState({
@@ -24,8 +24,7 @@ function UsersTable({title, role, columns, pageSize, tableMinHeight}) {
                 'Authorization': auth_token(),
             }
         });
-    }, [paginationModel]);
-    
+    }, [paginationModel, rerender]);
 
   return (
     <Paper elevation={0} sx={{ p:2, borderRadius:3, display:'flex', gap:2, flexDirection:'column' }} >
