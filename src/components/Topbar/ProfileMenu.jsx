@@ -8,6 +8,7 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 // react-auth-kit 
 import { useSignOut, useAuthUser } from 'react-auth-kit';
+import { useNavigate } from 'react-router-dom';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -41,6 +42,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 function ProfileMenu() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -56,6 +58,7 @@ function ProfileMenu() {
 
   const user = useAuthUser();
   const name = user().name.split(' ').map(word => word.slice(0,1).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+  const role = user().role.charAt(0).toUpperCase() + user().role.slice(1);
 
   return (
     <>
@@ -94,9 +97,9 @@ function ProfileMenu() {
             backgroundSize:'cover',
         }}>
             <Typography variant='h3' sx={{ color:colors.gray[100], fontSize:'bold'}}>{name}</Typography>
-            <Typography variant='subtitle2' color={colors.gray[100]}>Admin</Typography>
+            <Typography variant='subtitle2' color={colors.gray[100]}>{role}</Typography>
         </Box>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => {handleClose(); navigate('/profile');}}>
           My Profile
         </MenuItem>
         <Divider />

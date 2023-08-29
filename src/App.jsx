@@ -19,6 +19,7 @@ import Products from './pages/Products/Products';
 import AddProduct from './pages/AddProduct/AddProduct';
 import UpdateProduct from './pages/UpdateProduct/UpdateProduct';
 import ProductDetails from './pages/ProductDetails/ProductDetails';
+import Profile from './pages/Profile/Profile';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,11 +28,12 @@ const router = createBrowserRouter(
       <Route path='/' element={<RequireAuth loginPath='/login'><RootLayout/></RequireAuth > }>
         <Route index element={<RequireAuth loginPath='/login'><Dashboard /></RequireAuth>}/>
         <Route path='user-management' element={<RequireAuth loginPath='/login'><UserManagement /></RequireAuth>}/>
+        <Route path='profile' element={<RequireAuth loginPath='/login'><Profile/></RequireAuth>}/>
         <Route path='products' element={<Outlet/>}>
-          <Route index element={<RequireAuth><Products/></RequireAuth>}/>
-          <Route path='add-product' element={<RequireAuth><AddProduct/></RequireAuth>}/>
-          <Route path='update-product/:id' element={<RequireAuth><UpdateProduct/></RequireAuth>}/>
-          <Route path=':id' element={<RequireAuth><ProductDetails/></RequireAuth>} />
+          <Route index element={<RequireAuth loginPath='/login'><Products/></RequireAuth>}/>
+          <Route path='add-product' element={<RequireAuth loginPath='/login'><AddProduct/></RequireAuth>}/>
+          <Route path='update-product/:id' element={<RequireAuth loginPath='/login'><UpdateProduct/></RequireAuth>}/>
+          <Route path=':id' element={<RequireAuth loginPath='/login'><ProductDetails/></RequireAuth>} />
         </Route>
       </Route>
     </Route>

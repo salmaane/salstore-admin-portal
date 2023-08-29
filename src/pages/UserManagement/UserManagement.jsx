@@ -10,12 +10,14 @@ import UsersTable from "./UsersTable";
 import DeleteDialog from '../../components/Dialog/DeleteDialog';
 import { useState } from "react";
 import { useAuthHeader } from "react-auth-kit";
+import { useNavigate } from "react-router-dom";
 
 function UserManagement() {
   const [open, setOpen] = useState({isOpen:false, item: null});
   const {data: users, error, axiosFetch} = useAxiosFunction(usersInstance);
   const auth_token = useAuthHeader();
   const [deleteCount, setDeleteCount] = useState(0);
+  const navigate = useNavigate();
 
   const USERS_COLUMNS = [
     {
@@ -89,7 +91,7 @@ function UserManagement() {
             <IconButton onClick={()=> setOpen({isOpen: true, item: params.row})}>
                 <DeleteIcon color='error'/>
             </IconButton>,
-            <IconButton onClick={()=> console.log('add navigate() to update')}>
+            <IconButton onClick={()=> navigate('/profile', {state: params.row})}>
                 <EditOutlinedIcon />
             </IconButton>
         ],
