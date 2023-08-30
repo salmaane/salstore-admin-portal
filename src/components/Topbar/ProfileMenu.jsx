@@ -99,7 +99,7 @@ function ProfileMenu() {
             <Typography variant='h3' sx={{ color:colors.gray[100], fontSize:'bold'}}>{name}</Typography>
             <Typography variant='subtitle2' color={colors.gray[100]}>{role}</Typography>
         </Box>
-        <MenuItem onClick={() => {handleClose(); navigate('/profile');}}>
+        <MenuItem onClick={() => {handleClose(); navigate('/my-profile');}}>
           My Profile
         </MenuItem>
         <Divider />

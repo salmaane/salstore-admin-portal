@@ -20,6 +20,7 @@ import AddProduct from './pages/AddProduct/AddProduct';
 import UpdateProduct from './pages/UpdateProduct/UpdateProduct';
 import ProductDetails from './pages/ProductDetails/ProductDetails';
 import Profile from './pages/Profile/Profile';
+import MyProfile from './pages/Profile/MyProfile'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
         <Route index element={<RequireAuth loginPath='/login'><Dashboard /></RequireAuth>}/>
         <Route path='user-management' element={<RequireAuth loginPath='/login'><UserManagement /></RequireAuth>}/>
         <Route path='profile' element={<RequireAuth loginPath='/login'><Profile/></RequireAuth>}/>
+        <Route path='my-profile' element={<RequireAuth loginPath='/login'><MyProfile/></RequireAuth>}/>
         <Route path='products' element={<Outlet/>}>
           <Route index element={<RequireAuth loginPath='/login'><Products/></RequireAuth>}/>
           <Route path='add-product' element={<RequireAuth loginPath='/login'><AddProduct/></RequireAuth>}/>
