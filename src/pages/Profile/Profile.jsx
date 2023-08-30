@@ -1,5 +1,5 @@
 // Mui
-import { Avatar, Box, Grid, Paper, Typography, useTheme, Divider, MenuItem } from '@mui/material';
+import { Avatar, Box, Grid, Paper, Typography, useTheme, Divider, MenuItem, Skeleton } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { tokens } from '../../styles/theme';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -19,15 +19,15 @@ import { useAuthHeader, useAuthUser } from 'react-auth-kit';
 import { Link, useLocation } from 'react-router-dom';
 import useAxiosFunction from '../../hooks/useAxiosFunction';
 import usersInstance from '../../services/users';
-import { useState } from 'react';
-import { useSignIn } from 'react-auth-kit';
+import { useEffect, useState } from 'react';
 
 function Profile() {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const token = useAuthHeader();
     const {data, error, loading, axiosFetch} = useAxiosFunction(usersInstance);
-    
+    const [loadedUser, setLoadedUser] = useState();
+
     const [errorAlert, setErrorAlert] = useState(false);
     const handleCloseErrorAlert = (e, reason) => {
         if (reason === 'clickaway') {
@@ -35,22 +35,33 @@ function Profile() {
         }
         setErrorAlert(false);
     }
-
-    const location = useLocation();
-    let user = location.state;
-    if(!user) {
-        const user_auth = useAuthUser();
-        user = user_auth();
-    }
     
+    const location = useLocation();
+    const auth_state = useAuthUser();
+    let user = location.state;
+    useEffect(() => {
+        if(!user) {
+            axiosFetch({
+                url:'/' + auth_state().id,
+                method:'get',
+                headers:{
+                    'Authorization' : token(),
+                },
+                handleResponse: (data) => {setLoadedUser(data)},
+            });
+        } else {
+            setLoadedUser(user);
+        }
+    },[]);
+
     const formData = new FormData();
-    const handleSubmit = (values, actions) => {
+    const handleSubmit = (values, actions) => { 
         for(let key in values) {
             values[key] ? formData.append(key, values[key]) : null;
         }
 
         axiosFetch({
-            url:'/' + user.id + '?_method=patch',
+            url:'/' + loadedUser?.id + '?_method=patch',
             method:'post',
             headers:{
                 'Authorization' : token(),
@@ -59,12 +70,7 @@ function Profile() {
             data: formData,
             handleError: () => setErrorAlert(true),
             handleResponse: (data) => {
-                // signIn({
-                //     token: data.token,
-                //     expiresIn: data.expiresIn,
-                //     tokenType: 'Bearer',
-                //     authState: data,
-                // })
+                setLoadedUser(data);
             },
         });
 
@@ -117,14 +123,23 @@ function Profile() {
             >
                 <Avatar 
                     alt='profile' 
-                    src={user?.profile} 
+                    src={loadedUser?.profile} 
                     sx={{ width:100, height:100, border:'2px solid', borderColor: colors.indigo[500], cursor:'pointer' }}
                 />
-                <Box display='flex' alignItems='center' flexDirection='column'>
-                    <Typography variant='h4' fontWeight='bold'>{user.name.charAt(0).toUpperCase() + user.name.slice(1)}</Typography>
-                    <Typography variant='h6'>{user.role.charAt(0).toUpperCase() + user.role.slice(1)}</Typography>
+                <Box display='flex' alignItems='center' flexDirection='column' width='100%'>
+                    {loading ?
+                        <Box width='100%' display='flex' alignItems='center' flexDirection='column'>
+                            <Skeleton animation="wave" variant="text" sx={{ fontSize: '1rem', width:'60%', textAlign:'center' }}/>
+                            <Skeleton animation="wave" variant="text" sx={{ fontSize: '1rem', width:'40%' }}/>
+                        </Box>
+                    : 
+                    <>
+                        <Typography variant='h4' fontWeight='bold'>{loadedUser?.name ? loadedUser?.name.charAt(0).toUpperCase() + loadedUser?.name.slice(1) : null}</Typography>
+                        <Typography variant='h6'>{loadedUser?.role ? loadedUser?.role.charAt(0).toUpperCase() + loadedUser?.role.slice(1) : null}</Typography>
+                    </>
+                    }
                 </Box>
-                <Typography color={colors.indigo[500]} variant='body2'>account created {accountCreated(user.created_at)}</Typography>
+                <Typography color={colors.indigo[500]} variant='body2'>account created {accountCreated(loadedUser?.created_at)}</Typography>
             </Paper>
             <Paper
                 elevation={0} 
@@ -137,32 +152,32 @@ function Profile() {
                 }}
             >
                 <Typography variant='h5' fontWeight='bold'>Accounts</Typography>
-                { user?.social_links.facebook ? 
-                    <Link to={user?.social_links.facebook} target='blank' replace style={{ color:'#222' }}>
+                { loadedUser?.social_links.facebook ? 
+                    <Link to={loadedUser?.social_links.facebook} target='blank' replace style={{ color:'#222' }}>
                     <Box display='flex' gap={1} alignItems='center' sx={{ cursor:'pointer', '&:hover':{textDecoration:'underline'} }}>
                         <FacebookIcon sx={{ color: colors.primary[500] }}/>
                         <Typography>Facebook</Typography>
                     </Box>
                     </Link>
                 : null}
-                { user?.social_links.instagram ? 
-                    <Link to={user?.social_links.instagram} target='blank' replace style={{ color:'#222' }}>
+                { loadedUser?.social_links.instagram ? 
+                    <Link to={loadedUser?.social_links.instagram} target='blank' replace style={{ color:'#222' }}>
                     <Box display='flex' gap={1} sx={{ cursor:'pointer', '&:hover':{textDecoration:'underline'} }}>
                         <InstagramIcon sx={{ color: colors.primary[500] }} />
                         <Typography>Instagram</Typography>
                     </Box>
                     </Link>
                 : null}
-                { user?.social_links.twitter ? 
-                    <Link to={user?.social_links.twitter} target='blank' replace style={{ color:'#222' }}>
+                { loadedUser?.social_links.twitter ? 
+                    <Link to={loadedUser?.social_links.twitter} target='blank' replace style={{ color:'#222' }}>
                     <Box display='flex' gap={1} sx={{ cursor:'pointer', '&:hover':{textDecoration:'underline'} }}>
                         <TwitterIcon sx={{ color: colors.primary[500] }}/>
                         <Typography>Twitter</Typography>
                     </Box>
                     </Link>
                 : null}
-                { user?.social_links.linkedin ? 
-                    <Link to={user?.social_links.linkedin} target='blank' replace style={{ color:'#222' }}>
+                { loadedUser?.social_links.linkedin ? 
+                    <Link to={loadedUser?.social_links.linkedin} target='blank' replace style={{ color:'#222' }}>
                     <Box display='flex' gap={1} sx={{ cursor:'pointer', '&:hover':{textDecoration:'underline'} }}>
                         <LinkedInIcon sx={{ color: colors.primary[500] }}/>
                         <Typography>LinkedIn</Typography>
@@ -178,16 +193,16 @@ function Profile() {
                     enableReinitialize
                     validationSchema={FORM_VALIDATION}
                     initialValues={{ 
-                        name: user.name,
-                        email: user.email,
-                        role: user.role,
+                        name: loadedUser?.name || '',
+                        email: loadedUser?.email || '',
+                        role: loadedUser?.role || 'user',
                         old_password:'',
                         password:'',
                         password_confirmation:'',
-                        facebook: user.social_links.facebook || '',
-                        instagram: user.social_links.instagram || '',
-                        linkedin: user.social_links.linkedin || '',
-                        twitter: user.social_links.twitter || '',
+                        facebook: loadedUser?.social_links.facebook || '',
+                        instagram: loadedUser?.social_links.instagram || '',
+                        linkedin: loadedUser?.social_links.linkedin || '',
+                        twitter: loadedUser?.social_links.twitter || '',
                     }}
                     onSubmit={handleSubmit}
                 >
