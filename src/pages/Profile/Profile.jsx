@@ -16,7 +16,7 @@ import SnackbarAlert from '../../components/SnackbarAlert/SnackbarAlert';
 import SlideTransition from '../../components/Dialog/SlideTransition';
 // Hooks
 import { useAuthHeader, useAuthUser } from 'react-auth-kit';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAxiosFunction from '../../hooks/useAxiosFunction';
 import usersInstance from '../../services/users';
 import { useEffect, useState } from 'react';
@@ -25,6 +25,7 @@ function Profile() {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const token = useAuthHeader();
+    const navigate = useNavigate();
     const {data, error, loading, axiosFetch} = useAxiosFunction(usersInstance);
     const [loadedUser, setLoadedUser] = useState();
 
@@ -34,6 +35,14 @@ function Profile() {
             return;
         }
         setErrorAlert(false);
+    }
+
+    const [openAlert, setOpenAlert] = useState(false);
+    const handleCloseAlert = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenAlert(false);
     }
     
     const location = useLocation();
@@ -71,6 +80,8 @@ function Profile() {
             handleError: () => setErrorAlert(true),
             handleResponse: (data) => {
                 setLoadedUser(data);
+                navigate('', {state: data});
+                setOpenAlert(true);
             },
         });
 
@@ -261,6 +272,13 @@ function Profile() {
                     TransitionComponent={SlideTransition}
                     severity="error"
                 /> : null   }
+                <SnackbarAlert
+                    title='profile updated successfully'
+                    openAlert={openAlert}
+                    handleCloseAlert={handleCloseAlert}
+                    alertKey={data?.id}
+                    TransitionComponent={SlideTransition}
+                />
             </Paper>
         </Grid>
     </Grid>
