@@ -33,7 +33,9 @@ function SneakersTable() {
     {
       field: 'id',
       headerName: 'Id',
-      width: 60,
+      width: 80,
+      headerAlign: 'center',
+      align:'center',
     },
     {
       field: 'media',

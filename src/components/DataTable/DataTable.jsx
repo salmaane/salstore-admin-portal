@@ -24,7 +24,7 @@ export default function DataTable({rows, columns, loading, rowCount, paginationM
           rows={rows}
           columns={columns}
           filterMode='client'
-          checkboxSelection
+          checkboxSelection={false}
           disableRowSelectionOnClick
 
           keepNonExistentRowsSelected

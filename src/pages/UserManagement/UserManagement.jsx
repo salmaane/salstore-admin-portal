@@ -23,7 +23,9 @@ function UserManagement() {
     {
         field: 'id',
         headerName: 'Id',
-        width: 50,
+        width: 80,
+        headerAlign: 'center',
+        align:'center',
     },
     {
         field: 'profile',
@@ -101,7 +103,9 @@ function UserManagement() {
       {
           field: 'id',
           headerName: 'Id',
-          width: 50,
+          width: 80,
+          headerAlign: 'center',
+          align:'center',
       },
       {
           field: 'profile',
