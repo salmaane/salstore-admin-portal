@@ -13,7 +13,7 @@ const UploadPictureButton = ({setFieldValue, name, label, accept='image/*', setP
                 accept={accept}
                 onChange={(e) => {
                     setFieldValue(name, e.target.files[0]);
-                    setPicture(e.target.files[0]);
+                    setPicture(URL.createObjectURL(e.target.files[0]));
                 }}
             />
         </Button>

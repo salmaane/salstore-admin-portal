@@ -11,12 +11,12 @@ import { useState } from 'react';
 // Components
 import UpdateProfileDialog from './UpdateProfileDialog';
 
-function UserDetails({loadedUser, loading}) {
+function UserDetails({loadedUser, loading, picture, setPicture}) {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [isOpen, setIsOpen] = useState(false);
 
-    
+
 
   return (
     <Box display='flex' gap={2} flexDirection='column' height='100%'>
@@ -100,6 +100,8 @@ function UserDetails({loadedUser, loading}) {
                 isOpen={isOpen}
                 handleClose={() => setIsOpen(false)}
                 state={loadedUser}
+                picture={picture}
+                setPicture={setPicture}
             />
     </Box>
   )

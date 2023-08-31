@@ -16,6 +16,7 @@ function Profile() {
     const token = useAuthHeader();
     const {data, error, loading, axiosFetch} = useAxiosFunction(usersInstance);
     const [loadedUser, setLoadedUser] = useState();
+    const [dialogPicture, setDialogPicture] = useState();
     
     const location = useLocation();
     const auth_state = useAuthUser();
@@ -28,7 +29,7 @@ function Profile() {
                 headers:{
                     'Authorization' : token(),
                 },
-                handleResponse: (data) => {setLoadedUser(data)},
+                handleResponse: (data) => {setLoadedUser(data); setDialogPicture(data.profile)},
             });
         } else {
             setLoadedUser(user);
@@ -44,6 +45,8 @@ function Profile() {
             <UserDetails 
               loadedUser={loadedUser}
               loading={loading} 
+              picture={dialogPicture}
+              setPicture={setDialogPicture}
             />
         </Grid>
         <Grid item xs={12} md={7.7} >
