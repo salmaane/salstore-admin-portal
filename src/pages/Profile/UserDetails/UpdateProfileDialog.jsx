@@ -27,6 +27,13 @@ function UpdateProfileDialog({isOpen, handleClose, state, picture, setPicture, s
     }
     setOpenAlert(false);
   }
+  const [deletedAlert, setDeletedAlert] = useState(false);
+  const handleCloseDeletedAlert = (event, reason) => {
+    if (reason === 'clickaway') {
+        return;
+    }
+    setDeletedAlert(false);
+  }
 
   const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
   const FORM_VALIDATION = yup.object().shape({
@@ -53,6 +60,22 @@ function UpdateProfileDialog({isOpen, handleClose, state, picture, setPicture, s
     });
 
     actions.resetForm();
+  }
+
+  function handleDelete() {
+    axiosFetch({
+        url:'/delete-profile/' + state?.id,
+        method:'delete',
+        headers:{
+            'Authorization' : token(),
+        },
+        handleResponse: (data) => {
+            setDeletedAlert(true);
+            handleClose();
+            setLoadedUser({...state, profile: null});
+            setPicture(null);
+        },
+    });
   }
 
   return (
@@ -82,16 +105,23 @@ function UpdateProfileDialog({isOpen, handleClose, state, picture, setPicture, s
                                     src={picture}
                                     sx={{ width: 150, height:150, cursor:'pointer', border:'1px solid green' }}
                                 />
-                                <UploadPictureButton
-                                    name={'profile'}
-                                    accept=".png, .jpg, .jpeg, .svg"
-                                    label={props.values.profile}
-                                    setFieldValue={props.setFieldValue}
-                                    error={props.errors.profile}
-                                    setPicture={setPicture}
-                                />
+                                <Box sx={{ display:'flex', gap:1, alignItems:'flex-start' }}>
+                                    <Button 
+                                     variant='outlined'
+                                     color='error'
+                                     onClick={handleDelete}
+                                    >Remove</Button>
+                                    <UploadPictureButton
+                                        name={'profile'}
+                                        accept=".png, .jpg, .jpeg, .svg"
+                                        label={props.values.profile}
+                                        setFieldValue={props.setFieldValue}
+                                        error={props.errors.profile}
+                                        setPicture={setPicture}
+                                    />
+                                </Box>
                             </Box>
-                            <DialogActions sx={{ alignSelf:'flex-end', justifySelf:'flex-end' }}>
+                            <DialogActions>
                                 <Button color='error' 
                                     onClick={()=> {handleClose(); setPicture(state.profile)}}
                                     autoFocus 
@@ -111,6 +141,13 @@ function UpdateProfileDialog({isOpen, handleClose, state, picture, setPicture, s
             alertKey={state?.id}
             TransitionComponent={SlideTransition}
             handleCloseAlert={handleCloseAlert}
+        />
+        <SnackbarAlert
+            title="Profile picture deleted"
+            openAlert={deletedAlert}
+            alertKey={state?.id}
+            TransitionComponent={SlideTransition}
+            handleCloseAlert={handleCloseDeletedAlert}
         />
     </>
   )
