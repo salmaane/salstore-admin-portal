@@ -13,7 +13,7 @@ import axiosInstance from '../../services/sneakers'
 import UploadButton from "../../components/UploadButton/UploadButton";
 import SlideTransition from '../../components/Dialog/SlideTransition';
 import SnackbarAlert from "../../components/SnackbarAlert/SnackbarAlert";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function UpdateForm({productData, id}) {
     const navigate = useNavigate();
@@ -66,6 +66,17 @@ function UpdateForm({productData, id}) {
         actions.resetForm();
     };
 
+    function formatDate(dateString) {
+        let date = new Date(dateString);
+        let formatDate = date.getFullYear() + '-';
+        formatDate += date.getMonth() < 10 ? '0' + date.getMonth() + '-' : date.getMonth() + '-'; 
+        formatDate += date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+
+        return formatDate;
+    }
+
+    const releaseDate = productData?.releaseDate ? formatDate(productData?.releaseDate) : '';
+
   return (
     <Paper elevation={0} sx={{ p:2 }}>
         <Formik
@@ -75,7 +86,7 @@ function UpdateForm({productData, id}) {
                 brand: productData?.brand || '',
                 gender:productData?.gender || '',
                 colorway: productData?.colorway || '',
-                releaseDate: productData?.releaseDate || '',
+                releaseDate: releaseDate,
                 retailPrice: productData?.retailPrice || '',
                 thumbUrl: '',
                 smallImageUrl: '',

@@ -11,7 +11,7 @@ import { useState } from 'react';
 // Components
 import UpdateProfileDialog from './UpdateProfileDialog';
 
-function UserDetails({loadedUser, loading, picture, setPicture}) {
+function UserDetails({loadedUser, loading, picture, setPicture, setLoadedUser}) {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [isOpen, setIsOpen] = useState(false);
@@ -102,6 +102,7 @@ function UserDetails({loadedUser, loading, picture, setPicture}) {
                 state={loadedUser}
                 picture={picture}
                 setPicture={setPicture}
+                setLoadedUser={setLoadedUser}
             />
     </Box>
   )

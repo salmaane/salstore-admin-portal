@@ -47,6 +47,7 @@ function Profile() {
               loading={loading} 
               picture={dialogPicture}
               setPicture={setDialogPicture}
+              setLoadedUser={setLoadedUser}
             />
         </Grid>
         <Grid item xs={12} md={7.7} >

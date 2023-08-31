@@ -16,7 +16,7 @@ import useAxiosFunction from '../../../hooks/useAxiosFunction';
 import usersInstance from '../../../services/users';
 import { useAuthHeader } from 'react-auth-kit';
 
-function UpdateProfileDialog({isOpen, handleClose, state, picture, setPicture}) {
+function UpdateProfileDialog({isOpen, handleClose, state, picture, setPicture, setLoadedUser}) {
   const token = useAuthHeader();
   const {data, error, loading, axiosFetch} = useAxiosFunction(usersInstance);
   const formData = new FormData();
@@ -45,7 +45,11 @@ function UpdateProfileDialog({isOpen, handleClose, state, picture, setPicture}) 
             'Content-Type': 'multipart/form-data',
         },
         data: formData,
-        handleResponse: (data) => console.log(data),
+        handleResponse: (data) => {
+            setOpenAlert(true);
+            handleClose();
+            setLoadedUser({...state, profile: data});
+        },
     });
 
     actions.resetForm();
@@ -92,12 +96,7 @@ function UpdateProfileDialog({isOpen, handleClose, state, picture, setPicture}) 
                                     onClick={()=> {handleClose(); setPicture(state.profile)}}
                                     autoFocus 
                                 >Cancel</Button>
-                                <LoadingButton color='success' type='submit' loading={loading}
-                                    // onClick={()=> {
-                                    //     handleClose();
-                                    //     setOpenAlert(true);
-                                    // }} 
-                                >
+                                <LoadingButton color='success' type='submit' loading={loading}>
                                     Save Changes
                                 </LoadingButton>
                              </DialogActions>
