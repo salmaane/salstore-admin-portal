@@ -3,7 +3,7 @@ import { Grid } from '@mui/material';
 // components
 import Header from '../../components/Header/Header'
 import ProfileUpdateForm from './ProfileUpdateForm';
-import UserDetails from './UserDetails';
+import UserDetails from './UserDetails/UserDetails';
 // Hooks
 import { useEffect, useState } from 'react';
 import { useAuthHeader, useAuthUser } from 'react-auth-kit';

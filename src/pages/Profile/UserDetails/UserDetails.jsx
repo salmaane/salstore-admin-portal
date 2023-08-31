@@ -5,12 +5,18 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 // Hooks
-import { tokens } from '../../styles/theme';
+import { tokens } from '../../../styles/theme';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+// Components
+import UpdateProfileDialog from './UpdateProfileDialog';
 
 function UserDetails({loadedUser, loading}) {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const [isOpen, setIsOpen] = useState(false);
+
+    
 
   return (
     <Box display='flex' gap={2} flexDirection='column' height='100%'>
@@ -24,7 +30,7 @@ function UserDetails({loadedUser, loading}) {
                     gap:2,
                 }}
             >
-                <IconButton>
+                <IconButton onClick={()=> setIsOpen(true)}>
                     <Avatar 
                         alt='profile'
                         src={loadedUser?.profile} 
@@ -90,6 +96,11 @@ function UserDetails({loadedUser, loading}) {
                     </Link>
                 : null}
             </Paper>
+            <UpdateProfileDialog
+                isOpen={isOpen}
+                handleClose={() => setIsOpen(false)}
+                state={loadedUser}
+            />
     </Box>
   )
 }
