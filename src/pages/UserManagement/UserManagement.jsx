@@ -19,7 +19,7 @@ function UserManagement() {
   const [deleteCount, setDeleteCount] = useState(0);
   const navigate = useNavigate();
 
-  const USERS_COLUMNS = [
+  const CUSTOMERS_COLUMNS = [
     {
         field: 'id',
         headerName: 'Id',
@@ -35,7 +35,7 @@ function UserManagement() {
         editable:false,
         renderCell: (params) => {
             return (
-                <Avatar alt='profile' src={params.value} sx={{width:35, height:35}}/>
+                <Avatar alt={params.row.name} src={params.value} sx={{width:35, height:35}}/>
             );
         }
     },
@@ -113,7 +113,7 @@ function UserManagement() {
           width: 70,
           renderCell: (params) => {
               return (
-                  <Avatar alt='profile' src={params.value} sx={{width:35, height:35}}/>
+                  <Avatar alt={params.row.name} src={params.value} sx={{width:35, height:35}}/>
               );
           }
       },
@@ -190,9 +190,9 @@ function UserManagement() {
         </Grid>
         <Grid item xs={12}>
           <UsersTable 
-            title='Users' 
+            title='Customers' 
             role='user' 
-            columns={USERS_COLUMNS} 
+            columns={CUSTOMERS_COLUMNS} 
             pageSize={10}
             rerender={deleteCount}
           />
