@@ -1,8 +1,8 @@
-import { Box, Typography, useTheme } from '@mui/material'
+import { Box, Tooltip, Typography, useTheme } from '@mui/material'
 import React from 'react'
 import { tokens } from '../../styles/theme';
 
-function Card({title, value, Icon}) {
+function Card({title, value, Icon, subtitle = null, subvalue = null, tooltip=''}) {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
   return (
@@ -15,17 +15,38 @@ function Card({title, value, Icon}) {
                 display:'flex',
                 alignItems:'center',
                 gap:2,
+                height:'100%'
              }}
         >   
-            <Icon sx={{ fontSize: '2rem', mx:2, color: colors.primary[500] }}/>
+            <Tooltip title={tooltip}>
+                <Icon sx={{ fontSize: '2rem', mx:1, color: colors.primary[500], cursor:'pointer' }}/>
+            </Tooltip>
             <Box sx={{
                 display:'flex',
                 flexDirection:'column',
-                justifyContent:'center',
-                gap:1,
+                alignItems:'center',
+                gap:0,
+                width:'100%',
             }}>
-                <Typography variant='h5' sx={{ color: colors.gray[500] }}>{title}</Typography>
-                <Typography variant='h3'>{value}</Typography>
+                <Box sx={{
+                    display:'flex',
+                    alignItems:'center',
+                    gap:3,
+                    width:'100%',
+                }}>
+                    <Typography variant='h5' sx={{ color: colors.gray[500] }}>{title}</Typography>
+                    <Typography variant='h3'>{value}</Typography>
+                </Box>
+                <Box sx={{
+                    display:'flex',
+                    alignItems:'center',
+                    gap:2,
+                    width:'100%',
+                }}>
+                    <Typography variant='body2' sx={{ color: colors.gray[400] }}>{subtitle}</Typography>
+                    <Typography variant='body2' sx={{ color: colors.gray[400] }}>{subvalue}</Typography>
+                </Box>
+                
             </Box>
         </Box>
     

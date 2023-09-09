@@ -15,23 +15,30 @@ function Dashboard() {
         </Grid>
         <Grid item xs={12}  md={4} >
           <Card 
-            title={'Total Sales'}
+            title={'Sales'}
             value={1200}
             Icon={SellOutlinedIcon}
-          />
-        </Grid>
-        <Grid item xs={12}  md={4} >
-          <Card 
-            title={'Average Order'}
-            value={300}
-            Icon={InventoryOutlinedIcon}
+            tooltip='monthly sales'
+            subtitle={'total sales'}
+            subvalue={4005}
           />
         </Grid>
         <Grid item xs={12}  md={4} >
           <Card 
             title={'Revenue'}
-            value={'$' + 1200}
+            value={'$' + formatNumber(50_000)}
             Icon={MonetizationOnOutlinedIcon}
+            tooltip='monthly revenue'
+            subtitle={'total revenue'}
+            subvalue={'$'+formatNumber(100_000)}
+          />
+        </Grid>
+        <Grid item xs={12}  md={4} >
+          <Card 
+            title={'Average Order'}
+            value={30}
+            Icon={InventoryOutlinedIcon}
+            tooltip='daily average order'
           />
         </Grid>
       </Grid>
