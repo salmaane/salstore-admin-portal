@@ -5,8 +5,30 @@ import Card from './Card';
 import SellOutlinedIcon from '@mui/icons-material/SellOutlined';
 import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
 import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
+// axios
+import useAxiosFunciton from '../../hooks/useAxiosFunction';
+import analyticsInstance from '../../services/analytics';
+import { useEffect } from 'react';
+import { useAuthHeader } from 'react-auth-kit';
+import TopSellingProducts from './TopSellingProducts';
 
 function Dashboard() {
+
+  const {data: analytics, error, loading, axiosFetch} = useAxiosFunciton(analyticsInstance);
+  const token = useAuthHeader();
+
+  useEffect(() => {
+    axiosFetch({
+      url:'/',
+      method:'get',
+      headers: {
+        'Authorization': token(),
+      },
+    });
+  }, []);
+
+  console.log(analytics?.topSellingProducts);
+
   return (
     <Box>
       <Grid container spacing={3}>
@@ -16,30 +38,34 @@ function Dashboard() {
         <Grid item xs={12}  md={4} >
           <Card 
             title={'Sales'}
-            value={1200}
+            value={formatNumber(analytics?.monthTotalSales)}
             Icon={SellOutlinedIcon}
             tooltip='monthly sales'
             subtitle={'total sales'}
-            subvalue={4005}
+            subvalue={formatNumber(analytics?.totalSales)}
           />
         </Grid>
         <Grid item xs={12}  md={4} >
           <Card 
             title={'Revenue'}
-            value={'$' + formatNumber(50_000)}
+            value={formatNumber(analytics?.monthRevenue)}
             Icon={MonetizationOnOutlinedIcon}
             tooltip='monthly revenue'
             subtitle={'total revenue'}
-            subvalue={'$'+formatNumber(100_000)}
+            subvalue={formatNumber(analytics?.revenue)}
+            addDolarSign
           />
         </Grid>
         <Grid item xs={12}  md={4} >
           <Card 
             title={'Average Order'}
-            value={30}
+            value={formatNumber(analytics?.dailyAverageOrder)}
             Icon={InventoryOutlinedIcon}
             tooltip='daily average order'
           />
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <TopSellingProducts rows={analytics?.topSellingProducts}/>
         </Grid>
       </Grid>
     </Box>
