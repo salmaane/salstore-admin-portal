@@ -36,6 +36,7 @@ function DataTable({rows}) {
       >
         <Box sx={{ px:2.5, pt:1.5, border:0 }}>
           <Typography variant="h4" sx={{ fontWeight:'bold' }}>Top Selling Products</Typography>
+          <Typography variant="body1">Top 5 selled products</Typography>
         </Box>
         <Table stickyHeader size="small" aria-label="a dense table">
           <TableHead>
@@ -52,6 +53,14 @@ function DataTable({rows}) {
                 key={row.id}
                 sx={{ 
                   '&:last-child td, &:last-child th': { border: 0 },
+                  '&.MuiTableRow-root:hover':{
+                    backgroundColor: 'transparent',
+                  },
+                  '&.MuiTableRow-root:hover .MuiTableCell-root' :{
+                    color: colors.indigo[500],
+                    fontWeight:'bold',
+                    cursor:'pointer',
+                  }
                 }}
                 hover={true}
               >
