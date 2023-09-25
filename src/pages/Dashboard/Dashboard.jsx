@@ -10,9 +10,11 @@ import useAxiosFunciton from '../../hooks/useAxiosFunction';
 import analyticsInstance from '../../services/analytics';
 import { useEffect } from 'react';
 import { useAuthHeader } from 'react-auth-kit';
+// components
 import TopSellingProducts from './TopSellingProducts';
 import VisitsByCountryTable from './VisitsByCountryTable';
 import LowStockProductsTable from './LowStockProductsTable';
+import NewUsersRegistraionTable from './NewUsersRegistrationTable'
 
 function Dashboard() {
 
@@ -29,7 +31,7 @@ function Dashboard() {
     });
   }, []);
 
-  console.log(analytics?.lowStockProducts);
+  console.log(analytics?.newUsers);
 
   return (
     <Box>
@@ -63,7 +65,7 @@ function Dashboard() {
             title={'Average Order'}
             value={formatNumber(analytics?.dailyAverageOrder)}
             Icon={InventoryOutlinedIcon}
-            tooltip='daily average order'
+            tooltip='daily average order for this month'
           />
         </Grid>
         <Grid item xs={12} md={8}>
@@ -72,7 +74,10 @@ function Dashboard() {
         <Grid item xs={12} md={4}>
           <VisitsByCountryTable rows={analytics?.usersVisits.countries}/>
         </Grid>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={5}>
+          <NewUsersRegistraionTable rows={analytics?.newUsers}/>
+        </Grid>
+        <Grid item xs={12} md={7}>
           <LowStockProductsTable rows={analytics?.lowStockProducts}/>
         </Grid>
       </Grid>

@@ -8,6 +8,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { tokens } from '../../../styles/theme';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import createdTimeFormat from '../../../utils/createdTimeFormat';
 // Components
 import UpdateProfileDialog from './UpdateProfileDialog';
 
@@ -50,7 +51,7 @@ function UserDetails({loadedUser, loading, picture, setPicture, setLoadedUser}) 
                     </>
                     }
                 </Box>
-                <Typography color={colors.indigo[500]} variant='body2'>account created {accountCreated(loadedUser?.created_at)}</Typography>
+                <Typography color={colors.indigo[500]} variant='body2'>account created {createdTimeFormat(loadedUser?.created_at)}</Typography>
             </Paper>
             <Paper
                 elevation={0} 
@@ -106,34 +107,6 @@ function UserDetails({loadedUser, loading, picture, setPicture, setLoadedUser}) 
             />
     </Box>
   )
-}
-
-function accountCreated(creationDate) {
-    const accountDate = new Date(creationDate);
-    const currentDate = new Date();
-    let date = currentDate - accountDate;
-    let minutes = Math.floor(date / (1000 * 60));
-    let hours = Math.floor(minutes / 60)
-    let days = Math.floor(hours / 24);
-    let months = Math.floor(days / 30);
-    let years = Math.floor(months / 12);
-
-    if(years > 0) {
-        return years == 1 ? "1 year ago" : years + " years ago" ;
-    }
-    if(months > 0) {
-        return months == 1 ? "1 month ago" : months + " months ago" ;
-    }
-    if(days > 0) {
-        return days == 1 ? "1 day ago" : days + " days ago" ;
-    }
-    if(hours > 0) {
-        return hours == 1 ? "1 hour ago" : hours + " hours ago" ;
-    }
-    if(minutes > 0) {
-        return minutes == 1 ? "1 minute ago" : minutes + " minutes ago" ;
-    }
-    return "just now";
 }
 
 export default UserDetails
