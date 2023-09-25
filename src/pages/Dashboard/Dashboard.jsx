@@ -11,6 +11,7 @@ import analyticsInstance from '../../services/analytics';
 import { useEffect } from 'react';
 import { useAuthHeader } from 'react-auth-kit';
 import TopSellingProducts from './TopSellingProducts';
+import VisitsByCountryTable from './VisitsByCountryTable';
 
 function Dashboard() {
 
@@ -27,7 +28,7 @@ function Dashboard() {
     });
   }, []);
 
-  console.log(analytics?.topSellingProducts);
+  console.log(analytics?.usersVisits);
 
   return (
     <Box>
@@ -66,6 +67,9 @@ function Dashboard() {
         </Grid>
         <Grid item xs={12} md={8}>
           <TopSellingProducts rows={analytics?.topSellingProducts}/>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <VisitsByCountryTable rows={analytics?.usersVisits.countries}/>
         </Grid>
       </Grid>
     </Box>

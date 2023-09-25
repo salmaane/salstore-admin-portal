@@ -17,38 +17,32 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize:13,
   },
   [`&.${tableCellClasses.body}`]: {
-    fontWeight:'500',
+    fontWeight:'500'
   },
 }));
 
-function TopSellingProducts({rows}) {
+function VisitsByCountryTable({rows}) {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
     const skeletons = [];
-    for(let i=0; i< 5; i++) {
+    for(let i=0; i<10; i++) {
         skeletons.push(
             <TableRow 
                 key={i}
                 sx={{ 
                   '&:last-child td, &:last-child th': { border: 0 },
+                  '&.MuiTableRow-root:hover':{
+                    backgroundColor: 'transparent',
+                  },
                 }}
             >
-                <StyledTableCell align="center" sx={{ py:2.79 }}>
-                    <Skeleton variant="rectangular"/>
-                </StyledTableCell>
-                <StyledTableCell component="th" scope="row" sx={{ width:'100%' }}>
-                    <Skeleton variant="text"/>
-                </StyledTableCell>
-                <StyledTableCell align="right">
+                <TableCell>
                     <Skeleton variant="text" />
-                </StyledTableCell>
-                <StyledTableCell align="right">
+                </TableCell>
+                <TableCell>
                     <Skeleton variant="text" />
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                    <Skeleton variant="text" />
-                </StyledTableCell>
+                </TableCell>
             </TableRow>
         );
     }
@@ -66,22 +60,20 @@ function TopSellingProducts({rows}) {
         }}
       >
         <Box sx={{ px:2.5, pt:1.5, border:0 }}>
-          <Typography variant="h4" sx={{ fontWeight:'bold' }}>Top Selling Products</Typography>
-          <Typography variant="body1">Top 5 selled products</Typography>
+          <Typography variant="h4" sx={{ fontWeight:'bold' }}>Visits By Country</Typography>
+          <Typography variant="body1">Number of visitors from countries</Typography>
         </Box>
         <Table stickyHeader size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <StyledTableCell colSpan={2}></StyledTableCell>
-              <StyledTableCell align="right" >Quantity</StyledTableCell>
-              <StyledTableCell align="right" >Price</StyledTableCell>
-              <StyledTableCell align="right" >Revenue</StyledTableCell>
+              <StyledTableCell>Country</StyledTableCell>
+              <StyledTableCell align="right" >Visits</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {rows ? rows.map((row) => (
               <TableRow
-                key={row.id}
+                key={row.country}
                 sx={{ 
                   '&:last-child td, &:last-child th': { border: 0 },
                   '&.MuiTableRow-root:hover':{
@@ -95,17 +87,12 @@ function TopSellingProducts({rows}) {
                 }}
                 hover={true}
               >
-                <StyledTableCell align="center">
-                  <img src={row.thumbUrl} width={60}/>
-                </StyledTableCell>
                 <StyledTableCell component="th" scope="row">
-                  {row.title}
+                  {row.country}
                 </StyledTableCell>
-                <StyledTableCell align="right">{row.soldQuantity}</StyledTableCell>
-                <StyledTableCell align="right">{row.price}</StyledTableCell>
-                <StyledTableCell align="right">{row.revenue}</StyledTableCell>
+                <StyledTableCell align="right">{row.visits_number}</StyledTableCell>
               </TableRow>
-            )) :
+            )) : 
                 skeletons
             }
           </TableBody>
@@ -115,4 +102,4 @@ function TopSellingProducts({rows}) {
   )
 }
 
-export default TopSellingProducts;
+export default VisitsByCountryTable;
