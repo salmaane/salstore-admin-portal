@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { useAuthHeader } from 'react-auth-kit';
 import TopSellingProducts from './TopSellingProducts';
 import VisitsByCountryTable from './VisitsByCountryTable';
+import LowStockProductsTable from './LowStockProductsTable';
 
 function Dashboard() {
 
@@ -28,7 +29,7 @@ function Dashboard() {
     });
   }, []);
 
-  console.log(analytics?.usersVisits);
+  console.log(analytics?.lowStockProducts);
 
   return (
     <Box>
@@ -70,6 +71,9 @@ function Dashboard() {
         </Grid>
         <Grid item xs={12} md={4}>
           <VisitsByCountryTable rows={analytics?.usersVisits.countries}/>
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <LowStockProductsTable rows={analytics?.lowStockProducts}/>
         </Grid>
       </Grid>
     </Box>
