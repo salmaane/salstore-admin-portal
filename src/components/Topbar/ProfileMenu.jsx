@@ -69,7 +69,7 @@ function ProfileMenu() {
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                 variant="dot"
             >
-                <Avatar alt="profile"
+                <Avatar alt="profile" src={user()?.profile}
                     sx={{ width:'2.2rem', height:'2.2rem', cursor:'pointer' }}
             />
             </StyledBadge>

@@ -1,6 +1,7 @@
 import { Box, Typography, useTheme, Skeleton } from "@mui/material"
 import { styled } from '@mui/material/styles';
 import { tokens } from '../../styles/theme';
+import { useNavigate } from "react-router-dom";
 // Mui Table
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -22,6 +23,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 function TopSellingProducts({rows}) {
+    const navigate = useNavigate();
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
@@ -72,7 +74,7 @@ function TopSellingProducts({rows}) {
         <Table stickyHeader size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <StyledTableCell colSpan={2}></StyledTableCell>
+              <StyledTableCell ></StyledTableCell>
               <StyledTableCell align="right" >Quantity</StyledTableCell>
               <StyledTableCell align="right" >Price</StyledTableCell>
               <StyledTableCell align="right" >Revenue</StyledTableCell>
@@ -90,16 +92,18 @@ function TopSellingProducts({rows}) {
                   '&.MuiTableRow-root:hover .MuiTableCell-root' :{
                     color: colors.indigo[500],
                     fontWeight:'bold',
-                    cursor:'pointer',
                   }
                 }}
                 hover={true}
               >
-                <StyledTableCell align="center">
-                  <img src={row.thumbUrl} width={60}/>
-                </StyledTableCell>
-                <StyledTableCell component="th" scope="row">
-                  {row.title}
+                <StyledTableCell 
+                  align="center" 
+                  sx={{ cursor:'pointer', '&:hover' : {textDecoration:'underline'} }} 
+                >
+                  <Box display='flex' alignItems={'center'} gap={2} onClick={()=> navigate('/products/'+row.id)}>
+                    <img src={row.thumbUrl} width={60}/>
+                    <Typography variant="body1" >{row.title}</Typography>
+                  </Box>
                 </StyledTableCell>
                 <StyledTableCell align="right">{row.soldQuantity}</StyledTableCell>
                 <StyledTableCell align="right">{row.price}</StyledTableCell>
