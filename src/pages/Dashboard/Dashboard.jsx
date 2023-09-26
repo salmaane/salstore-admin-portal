@@ -15,6 +15,7 @@ import TopSellingProducts from './TopSellingProducts';
 import VisitsByCountryTable from './VisitsByCountryTable';
 import LowStockProductsTable from './LowStockProductsTable';
 import NewUsersRegistraionTable from './NewUsersRegistrationTable'
+import OrdersPerDayChart from './OrdersPerDayChart';
 
 function Dashboard() {
 
@@ -31,7 +32,7 @@ function Dashboard() {
     });
   }, []);
 
-  console.log(analytics?.newUsers);
+  console.log(analytics?.ordersPerDay);
 
   return (
     <Box>
@@ -79,6 +80,9 @@ function Dashboard() {
         </Grid>
         <Grid item xs={12} md={7}>
           <LowStockProductsTable rows={analytics?.lowStockProducts}/>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <OrdersPerDayChart data={analytics?.ordersPerDay} />
         </Grid>
       </Grid>
     </Box>

@@ -106,8 +106,8 @@ function TopSellingProducts({rows}) {
                   </Box>
                 </StyledTableCell>
                 <StyledTableCell align="right">{row.soldQuantity}</StyledTableCell>
-                <StyledTableCell align="right">{row.price}</StyledTableCell>
-                <StyledTableCell align="right">{row.revenue}</StyledTableCell>
+                <StyledTableCell align="right">${row.price}</StyledTableCell>
+                <StyledTableCell align="right">${row.revenue}</StyledTableCell>
               </TableRow>
             )) :
                 skeletons
