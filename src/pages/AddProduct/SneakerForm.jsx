@@ -39,6 +39,7 @@ function SneakerForm() {
         brand: yup.string().required('Brand is a required field'),
         retailPrice: yup.number().required('Price is a required field'),
         releaseDate: yup.date().required('Date is a required field'),
+        quantity: yup.number().required('Quantity is a required field'),
         thumbUrl: yup.mixed().required('No file chosen')
         .test("is-valid-size", "Max allowed size is 5Mb", value => (value && value.size) <= MAX_IMAGE_SIZE ),
         smallImageUrl: yup.mixed().required('No file chosen')
@@ -79,6 +80,7 @@ function SneakerForm() {
                 colorway: '',
                 releaseDate: '',
                 retailPrice: '',
+                quantity: '',
                 thumbUrl: '',
                 smallImageUrl:'',
                 imageUrl:'',
@@ -103,7 +105,7 @@ function SneakerForm() {
                                 <MenuItem value='toddler'>Toddler</MenuItem>
                             </Field>
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sm={6}>
                             <Field name='colorway' component={TextField} label='Color' fullWidth/>
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -114,7 +116,10 @@ function SneakerForm() {
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <Field name='retailPrice' component={TextField} type='number' label='Price' fullWidth/>
+                            <Field name='retailPrice' component={TextField} type='number' label='Price' inputProps={{min:0,step:1}} fullWidth/>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Field name='quantity' component={TextField} type='number' label='Quantity' inputProps={{min:0,step:1}} fullWidth/>
                         </Grid>
                         <Grid item xs={4}>
                             <UploadButton 
@@ -171,14 +176,16 @@ function SneakerForm() {
             alertKey={data?.id}
             TransitionComponent={SlideTransition}
         />
-        <SnackbarAlert
+        {error?.status == 422 ? <SnackbarAlert
             title={error?.data.message}
             openAlert={errorAlert}
             handleCloseAlert={handleCloseErrorAlert}
             alertKey={error?.data.message}
             TransitionComponent={SlideTransition}
             severity="error"
-        />
+        /> :
+            null
+        }
     </Paper>
   )
 }

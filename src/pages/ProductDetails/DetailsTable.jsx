@@ -67,6 +67,14 @@ function DetailsTable({data}) {
                         {data?.releaseDate}
                     </TableCell>
                 </TableRow>
+                <TableRow>
+                    <TableCell>
+                        <Typography variant='h6'>Quantity</Typography>
+                    </TableCell>
+                    <TableCell>
+                        {data?.quantity}
+                    </TableCell>
+                </TableRow>
             </TableBody>
         </Table>
     </TableContainer>

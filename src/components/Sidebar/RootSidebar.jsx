@@ -6,6 +6,7 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import LoyaltyOutlinedIcon from '@mui/icons-material/LoyaltyOutlined';
 // components
 import { Box, useTheme, IconButton } from '@mui/material';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
@@ -103,6 +104,12 @@ function RootSidebar({collapsed, setCollapsed }) {
             selected={selected}
           />
         </SubMenu>
+        <Item
+          title="Orders"
+          icon={<LoyaltyOutlinedIcon/>}
+          to='orders'
+          selected={selected}
+        />
         <Item
           title="User Management"
           icon={<PersonOutlineOutlinedIcon/>}

@@ -21,6 +21,7 @@ import UpdateProduct from './pages/UpdateProduct/UpdateProduct';
 import ProductDetails from './pages/ProductDetails/ProductDetails';
 import Profile from './pages/Profile/Profile';
 import MyProfile from './pages/Profile/MyProfile'
+import Orders from './pages/Orders/Orders';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,6 +38,7 @@ const router = createBrowserRouter(
           <Route path='update-product/:id' element={<RequireAuth loginPath='/login'><UpdateProduct/></RequireAuth>}/>
           <Route path=':id' element={<RequireAuth loginPath='/login'><ProductDetails/></RequireAuth>} />
         </Route>
+        <Route path='orders' element={<RequireAuth loginPath='/login'><Orders/></RequireAuth>} />
       </Route>
     </Route>
   )

@@ -28,7 +28,7 @@ function SneakersTable() {
       method: 'get',
     });
   }, [paginationModel]);
-
+  
   const productsColumns = [
     {
       field: 'id',
@@ -86,6 +86,9 @@ function SneakersTable() {
       type:'number',
       headerAlign: 'left',
       align:'left',
+      valueFormatter: (params) => {
+        return `$${params.value.toLocaleString()}`;
+      },
     },
     {
       field: 'gender',
@@ -100,6 +103,15 @@ function SneakersTable() {
         if(params.value === null) return '';
         return new Date(params.value).getFullYear();
       }
+    },
+    {
+      field: 'quantity',
+      headerName: 'Quantity',
+      width: 100,
+      sortable: true,
+      type:'number',
+      headerAlign:'center',
+      align:'center',
     },
     {
       field: 'action',

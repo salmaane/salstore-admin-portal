@@ -88,6 +88,7 @@ function UpdateForm({productData, id}) {
                 colorway: productData?.colorway || '',
                 releaseDate: releaseDate,
                 retailPrice: productData?.retailPrice || '',
+                quantity: productData?.quantity || '',
                 thumbUrl: '',
                 smallImageUrl: '',
                 imageUrl: '',
@@ -113,7 +114,7 @@ function UpdateForm({productData, id}) {
                                 <MenuItem value='preschool'>Preschool</MenuItem>
                             </Field>
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sm={6}>
                             <Field name='colorway' component={TextField} label='Color' fullWidth/>
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -124,7 +125,10 @@ function UpdateForm({productData, id}) {
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <Field name='retailPrice' component={TextField} type='number' label='Price' fullWidth/>
+                            <Field name='retailPrice' component={TextField} type='number' label='Price' inputProps={{min:0,step:1}} fullWidth/>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Field name='quantity' component={TextField} type='number' label='Quantity' inputProps={{min:0,step:1}} fullWidth/>
                         </Grid>
                         <Grid item xs={12} md={4}>
                             <UploadButton 
