@@ -16,6 +16,7 @@ import VisitsByCountryTable from './VisitsByCountryTable';
 import LowStockProductsTable from './LowStockProductsTable';
 import NewUsersRegistraionTable from './NewUsersRegistrationTable'
 import OrdersPerDayChart from './OrdersPerDayChart';
+import SalesPerDayChart from './SalesPerDayChart';
 
 function Dashboard() {
 
@@ -32,7 +33,7 @@ function Dashboard() {
     });
   }, []);
 
-  console.log(analytics?.ordersPerDay);
+  console.log(analytics?.salesPerDay);
 
   return (
     <Box>
@@ -83,6 +84,9 @@ function Dashboard() {
         </Grid>
         <Grid item xs={12} md={6}>
           <OrdersPerDayChart data={analytics?.ordersPerDay} />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <SalesPerDayChart data={analytics?.salesPerDay} />
         </Grid>
       </Grid>
     </Box>
