@@ -127,6 +127,9 @@ export const themeSettings = (mode) => {
                 error : {
                   main: colors.red[500]
                 },
+                yellow : {
+                  main: colors.yellow[500]
+                },
                 background: {
                     default: colors.darkWhite[500]
                 },

@@ -1,6 +1,6 @@
 import { Box, Grid } from '@mui/material';
 import Header from '../../components/Header/Header';
-
+import OrdersTable from './OrdersTable';
 
 function Orders() {
 
@@ -11,7 +11,7 @@ function Orders() {
           <Header title='Orders'/>
         </Grid>
         <Grid item xs={12}>
-
+          <OrdersTable />
         </Grid>
       </Grid>
     </Box>

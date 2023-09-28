@@ -11,7 +11,7 @@ function OrdersPerDayChart({data}) {
     const [orders, setOrders] = useState({
         labels: data && Object.keys(data).reverse().map(date => {
             const currentDate = new Date(date);
-            return currentDate.getDate() + '/' + currentDate.getMonth(); 
+            return currentDate.getDate() + '/' + (currentDate.getMonth() + 1); 
         }),
         datasets: [
           {
@@ -29,7 +29,7 @@ function OrdersPerDayChart({data}) {
         setOrders({
             labels: data && Object.keys(data).reverse().map(date => {
                 const currentDate = new Date(date);
-                return currentDate.getDate() + '/' + currentDate.getMonth(); 
+                return currentDate.getDate() + '/' + (currentDate.getMonth() + 1); 
             }),
             datasets: [
             {
