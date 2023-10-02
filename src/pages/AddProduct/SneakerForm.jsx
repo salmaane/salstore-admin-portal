@@ -121,7 +121,7 @@ function SneakerForm() {
                         <Grid item xs={12} sm={6}>
                             <Field name='quantity' component={TextField} type='number' label='Quantity' inputProps={{min:0,step:1}} fullWidth/>
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={12} sm={4}>
                             <UploadButton 
                                 title="thumbnail"
                                 setFieldValue={props.setFieldValue}
@@ -131,7 +131,7 @@ function SneakerForm() {
                                 accept=".png, .jpg, .jpeg, .svg"
                             />
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={12} sm={4}>
                             <UploadButton 
                                 title="small image"
                                 setFieldValue={props.setFieldValue}
@@ -141,7 +141,7 @@ function SneakerForm() {
                                 accept=".png, .jpg, .jpeg, .svg"
                             />
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={12} sm={4}>
                             <UploadButton 
                                 title="large image"
                                 setFieldValue={props.setFieldValue}

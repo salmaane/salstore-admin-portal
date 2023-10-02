@@ -19,8 +19,10 @@ function Header({title}) {
         display:'flex',
         justifyContent:'space-between',
         alignItems:'center',
+        flexWrap:'wrap',
+        gap:2,
      }}>
-        <Box display='flex' justifyContent='center' alignItems='baseline' gap={3}>
+        <Box display='flex' justifyContent='center' alignItems='baseline' gap={3} flexWrap={'wrap'}>
             <Typography variant="h2">{title}</Typography>
             <Breadcrumbs separator='/'>
                 {paths.map((path, index) => {

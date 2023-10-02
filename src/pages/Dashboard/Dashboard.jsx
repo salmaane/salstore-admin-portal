@@ -33,8 +33,6 @@ function Dashboard() {
     });
   }, []);
 
-  console.log(analytics?.salesPerDay);
-
   return (
     <Box>
       <Grid container spacing={3}>
