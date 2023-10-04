@@ -1,16 +1,21 @@
 import {useTheme, Box, IconButton, Badge} from "@mui/material";
 import { tokens } from "../../styles/theme";
+import useMediaQuery from '@mui/material/useMediaQuery';
 // Icons
 import SearchBar from "./SearchBar";
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import ProfileMenu from "./ProfileMenu";
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 
-function Topbar() {
+function Topbar({toggled, setToggled}) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const matches = useMediaQuery('(min-width:768px)');
+
   return (
     <Box 
       sx={{ 
@@ -28,10 +33,28 @@ function Topbar() {
         zIndex:9,
       }}
      >
-      <SearchBar/>
-      <Box display='flex' justifyContent='space-between' alignItems='center' gap={4}>
+      {matches && <SearchBar/>}
+      {toggled && 
+        <IconButton 
+          sx={{ 
+            position:'fixed',
+            top:'1%',
+            right:'2%',
+            zIndex:9,
+           }}
+          onClick={()=> setToggled(false)}>
+          <CloseIcon sx={{ color: colors.gray[900], fontSize:33 }}/>
+        </IconButton>
+      }
+      <Box display='flex' justifyContent='space-between' alignItems='center' gap={4} sx={{ flex: !matches ? 1 : 'initial' }}>
 
         <Box display='flex' justifyContent='space-between' alignItems='center' gap={1}>
+          {!matches && 
+            <IconButton onClick={() => setToggled(true)}>
+              <MenuIcon sx={{ color: colors.gray[700], fontSize:26 }}/>
+            </IconButton>
+          }
+
           <IconButton><Badge badgeContent={7} color="warning" >
             <NotificationsOutlinedIcon sx={{ color: colors.gray[700], fontSize:26 }} />
           </Badge></IconButton>

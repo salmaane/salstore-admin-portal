@@ -1,5 +1,6 @@
 import { tokens } from '../../styles/theme';
 import { useLocation } from 'react-router-dom';
+import useMediaQuery from '@mui/material/useMediaQuery';
 // Assets
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
@@ -14,7 +15,7 @@ import Separator from './Separator';
 import Item from './Item'
 
 
-function RootSidebar({collapsed, setCollapsed }) {
+function RootSidebar({collapsed, setCollapsed, toggled, setToggled }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   
@@ -24,18 +25,19 @@ function RootSidebar({collapsed, setCollapsed }) {
 
   return (
     <Sidebar
-      breakPoint='lg'
+      breakPoint='768px'
       collapsed={collapsed}
       backgroundColor={colors.gray[100]}
       rootStyles={({toggled}) => ({
         boxShadow: '6px 0 10px -8px rgba(0,0,0,0.1)',
-        width: '272px',
         height: '100vh',
         position:'sticky',
         left:0,
         top:0,
         zIndex:10,
-       })}
+      })}
+      toggled={toggled}
+      onBackdropClick={() => setToggled(false)}
     >
       <Menu
         closeOnClick
@@ -84,6 +86,7 @@ function RootSidebar({collapsed, setCollapsed }) {
           icon={<HomeOutlinedIcon/>}
           to='/'
           selected={selected}
+          setToggled={setToggled}
         />
         <Separator title="General" collapsed={collapsed} color={colors.darkWhite[700]} />
         <SubMenu 
@@ -96,12 +99,14 @@ function RootSidebar({collapsed, setCollapsed }) {
             to='products' 
             icon={<FiberManualRecordIcon sx={{ fontSize: '10px' }} />}
             selected={selected}
+            setToggled={setToggled}
           />
           <Item 
             title='Add Product' 
             to='products/add-product' 
             icon={<FiberManualRecordIcon sx={{ fontSize:'10px' }} />} 
             selected={selected}
+            setToggled={setToggled}
           />
         </SubMenu>
         <Item
@@ -109,12 +114,14 @@ function RootSidebar({collapsed, setCollapsed }) {
           icon={<LoyaltyOutlinedIcon/>}
           to='orders'
           selected={selected}
+          setToggled={setToggled}
         />
         <Item
           title="User Management"
           icon={<PersonOutlineOutlinedIcon/>}
           to='user-management'
           selected={selected}
+          setToggled={setToggled}
         />
       </Menu>
     </Sidebar>
